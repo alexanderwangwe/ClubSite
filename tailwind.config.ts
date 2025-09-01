@@ -20,30 +20,42 @@ const config: Config = {
     },
     extend: {
       colors: {
+        // 🎨 Strathmore Brand
+        "strathmore-blue": "#002E6D",
+        "strathmore-red": "#E41C24",
+        "strathmore-gold": "#FFD200",
+
+        // 🌱 Environmental theme
+        "eco-green": "#2E7D32",
+        "neutral-gray": "#F5F5F5",
+        "neutral-dark": "#333333",
+
+        // Existing palette tweaks
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+
         primary: {
-          DEFAULT: "#4CAF50",
+          DEFAULT: "#2E7D32", // eco-green as default primary
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#F5F5DC",
-          foreground: "#8D6E63",
+          DEFAULT: "#002E6D", // strathmore blue as secondary
+          foreground: "#FFFFFF",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
         muted: {
-          DEFAULT: "#F5F5DC",
+          DEFAULT: "#F5F5F5",
           foreground: "#8D6E63",
         },
         accent: {
-          DEFAULT: "#F5F5DC",
-          foreground: "#4CAF50",
+          DEFAULT: "#FFD200", // strathmore gold for highlights
+          foreground: "#002E6D",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -53,6 +65,8 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+
+        // Keep your existing green scale
         green: {
           50: "#f0fdf4",
           100: "#dcfce7",
@@ -71,6 +85,10 @@ const config: Config = {
         beige: {
           DEFAULT: "#F5F5DC",
         },
+      },
+      fontFamily: {
+        sans: ["var(--font-inter)", "sans-serif"],
+        serif: ["var(--font-merriweather)", "serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
