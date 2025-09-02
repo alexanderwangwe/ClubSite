@@ -1,141 +1,166 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Search, Calendar, MapPin, Users, Clock } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import EventCard from "@/components/EventCard";
-import NewsletterSignup from "@/components/NewsletterSignup";
-import { getEvents } from "@/lib/api";
-import type { Event } from "@/lib/types";
+import { Calendar, Clock, MapPin, Users, ArrowLeft, Leaf } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import Navbar from "@/components/Navbar"
+import Link from "next/link"
+import Footer from "@/components/Footer"
 
-export default async function EventsPage() {
-  const { events, total } = await getEvents();
-  const featuredEvent = events.find((event) => event.featured);
-  const upcomingEvents = events.filter((event) => !event.featured);
-
-  const eventCategories = [
-    "All Events",
-    "Clean-up",
-    "Education",
-    "Conservation",
-    "Festival",
-  ];
+export default function EventsPage() {
+  const upcomingEvents = [
+    {
+      id: 1,
+      title: "Siwaka Cleanup Day",
+      date: "2024-09-14",
+      time: "9:00 AM",
+      location: "Siwaka Estate",
+      description: "Join fellow students in a community cleanup around Siwaka estate to promote a cleaner environment.",
+      image: "/heroimage.png",
+      attendees: 60,
+      category: "Cleanup",
+    },
+    {
+      id: 2,
+      title: "Campus Tree Planting",
+      date: "2024-09-28",
+      time: "8:30 AM",
+      location: "Strathmore University Grounds",
+      description: "Help us plant trees across campus and contribute to a greener learning environment.",
+      image: "/heroimage.png",
+      attendees: 85,
+      category: "Conservation",
+    },
+    {
+      id: 3,
+      title: "Recycling Awareness Workshop",
+      date: "2024-10-05",
+      time: "2:00 PM",
+      location: "STMB Auditorium",
+      description: "Interactive workshop on practical recycling methods and how to reduce waste in daily life.",
+      image: "/heroimage.png",
+      attendees: 45,
+      category: "Workshop",
+    },
+    {
+      id: 4,
+      title: "Environmental Debate",
+      date: "2024-10-19",
+      time: "6:00 PM",
+      location: "Main Auditorium",
+      description: "Engage in a debate on climate policy and sustainability, featuring student and guest speakers.",
+      image: "/heroimage.png",
+      attendees: 120,
+      category: "Debate",
+    },
+    {
+      id: 5,
+      title: "Sustainability Fair",
+      date: "2024-11-02",
+      time: "10:00 AM",
+      location: "University Courtyard",
+      description: "Discover eco-friendly innovations, sustainable products, and community initiatives from students and partners.",
+      image: "/heroimage.png",
+      attendees: 200,
+      category: "Fair",
+    },
+    {
+      id: 6,
+      title: "Community Outreach Program",
+      date: "2024-11-16",
+      time: "9:30 AM",
+      location: "Riverside Community",
+      description: "Partnering with local residents to share sustainable practices and support neighborhood cleanups.",
+      image: "/heroimage.png",
+      attendees: 50,
+      category: "Outreach",
+    },
+  ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
+    <div className="min-h-screen bg-background">
+      {/* Header */}
       <Navbar />
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-green-600 to-green-800 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Environmental Events
-          </h1>
-          <p className="text-xl text-green-100 max-w-3xl mx-auto">
-            Join our community initiatives, workshops, and conservation
-            activities. Together, we're making a lasting impact on our campus
-            environment.
+
+      {/* Page Header */}
+      <section className="bg-gradient-to-r from-primary/10 to-accent/10 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Link href="/" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors mb-6">
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Home
+          </Link>
+          <h2 className="text-4xl md:text-5xl font-bold font-serif text-foreground mb-4 text-balance">
+            Upcoming SESC Events
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-3xl text-pretty">
+            Be part of our journey toward a sustainable future. From cleanups to workshops, debates, and fairs —
+            there’s always a way to get involved and make an impact with SESC.
           </p>
         </div>
       </section>
 
-      {/* Search and Filter */}
-      <section className="py-8 bg-white border-b border-green-100">
+      {/* Events Grid */}
+      <section className="py-16 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-              <Input
-                placeholder="Search events..."
-                className="pl-10 border-green-200 focus:border-green-500"
-              />
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {eventCategories.map((category, index) => (
-                <Button
-                  key={index}
-                  variant={index === 0 ? "default" : "outline"}
-                  size="sm"
-                  className={
-                    index === 0
-                      ? "bg-green-600 hover:bg-green-700"
-                      : "border-green-200 text-green-700 hover:bg-green-50"
-                  }
-                >
-                  {category}
-                </Button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Event */}
-      {featuredEvent && (
-        <section className="py-12 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="mb-8">
-              <h2 className="text-3xl font-bold text-green-800 mb-4">
-                Featured Event
-              </h2>
-              <EventCard event={featuredEvent} featured />
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Upcoming Events */}
-      <section className="py-16 bg-green-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-green-800 mb-4">
-              Upcoming Events
-            </h2>
-            <p className="text-lg text-gray-600">
-              Mark your calendar and join us in making a difference
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {upcomingEvents.map((event) => (
-              <EventCard key={event.id} event={event} />
+              <Card key={event.id} className="overflow-hidden hover:shadow-lg transition-shadow duration-300 group">
+                <div className="relative">
+                  <img
+                    src={event.image || "/placeholder.svg"}
+                    alt={event.title}
+                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground">{event.category}</Badge>
+                </div>
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold text-balance">{event.title}</CardTitle>
+                  <CardDescription className="text-pretty">{event.description}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center text-sm text-muted-foreground space-x-4">
+                    <div className="flex items-center">
+                      <Calendar className="h-4 w-4 mr-1" />
+                      {new Date(event.date).toLocaleDateString()}
+                    </div>
+                    <div className="flex items-center">
+                      <Clock className="h-4 w-4 mr-1" />
+                      {event.time}
+                    </div>
+                  </div>
+                  <div className="flex items-center text-sm text-muted-foreground">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    {event.location}
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center text-sm text-muted-foreground">
+                      <Users className="h-4 w-4 mr-1" />
+                      {event.attendees} attending
+                    </div>
+                    <Button className="bg-accent hover:bg-accent/90 text-accent-foreground">RSVP</Button>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
-
-          {total > 6 && (
-            <div className="text-center mt-12">
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
-              >
-                Load More Events
-              </Button>
-            </div>
-          )}
         </div>
       </section>
 
-      {/* Newsletter Signup */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h2 className="text-3xl font-bold text-green-800 mb-4">
-                Stay Connected
-              </h2>
-              <p className="text-lg text-gray-600 mb-6">
-                Sign up to receive updates about our events, blog posts, and
-                environmental initiatives. Be the first to know about upcoming
-                activities and join our growing community of environmental
-                advocates.
-              </p>
-            </div>
-            <NewsletterSignup />
-          </div>
+      {/* CTA Section */}
+      <section className="py-16 bg-muted/50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h3 className="text-3xl font-bold text-foreground mb-4">Want to Start Something New?</h3>
+          <p className="text-lg text-muted-foreground mb-8 text-pretty">
+            Do you have an idea for an environmental initiative or event? Share it with SESC and let’s make it happen together.
+          </p>
+          <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+            Suggest an Event
+          </Button>
         </div>
       </section>
 
+      {/* Footer */}
       <Footer />
+
     </div>
-  );
+  )
 }
