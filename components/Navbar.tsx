@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { Leaf } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
@@ -19,16 +18,29 @@ export default function Navbar() {
     <nav className="bg-white border-b border-green-100 shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo & Club Name */}
-          <Link href="/" className="flex items-center space-x-2 group">
+          {/* Logo Section */}
+          <Link href="/" className="flex items-center space-x-3 group">
+            {/* Strathmore University Logo */}
             <img
-              src="/SESC_Logo.jpg"
-              alt="Strathmore Logo"
-              className="h-9 w-9 object-contain rounded-full border-2 border-[#c8102e] group-hover:border-[#00205b] transition"
+              src="/Strathmore-University-Logo.png"
+              alt="Strathmore University Logo"
+              className="h-12 object-contain"
             />
-            <span className="font-extrabold text-xl text-[#c8102e] group-hover:text-[#00205b] transition">
-              SESC
-            </span>
+
+            {/* Divider */}
+            <span className="text-gray-700">|</span>
+
+            {/* SESC Logo + Text */}
+            <div className="flex items-center space-x-2">
+              <img
+                src="/SESC_Logo.jpg"
+                alt="SESC Logo"
+                className="h-9 w-9 object-contain rounded-full border-2 border-[#c8102e] group-hover:border-[#00205b] transition"
+              />
+              <span className="font-extrabold text-xl text-[#c8102e] group-hover:text-[#00205b] transition">
+                SESC
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Nav */}
@@ -50,13 +62,12 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Mobile Nav Toggle */}
+          {/* Mobile Nav Placeholder */}
           <div className="md:hidden flex items-center">
-            {/* Future: Add mobile menu button here */}
+            {/* TODO: Add mobile menu toggle */}
           </div>
         </div>
       </div>
-      {/* Future: Add mobile dropdown menu here */}
     </nav>
   );
 }
