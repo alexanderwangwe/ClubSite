@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../styles/globals.css";
 import { Toaster } from "sonner";
-
+import SupabaseProvider from "@/components/SupabaseProvider"; 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
   },
-  metadataBase: new URL("https://localhost:3000"), // Replace with your actual domain
+  metadataBase: new URL("http://localhost:3000"), // ✅ correct for dev
 };
 
 export default function RootLayout({
@@ -33,8 +33,11 @@ export default function RootLayout({
       <body
         className={`${inter.className} min-h-screen bg-background antialiased`}
       >
-        {children}
-        <Toaster position="top-center" />
+        {/* ✅ Supabase now properly wraps children */}
+        <SupabaseProvider>
+          {children}
+          <Toaster position="top-center" />
+        </SupabaseProvider>
       </body>
     </html>
   );
