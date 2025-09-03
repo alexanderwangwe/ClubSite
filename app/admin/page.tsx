@@ -19,6 +19,12 @@ import {
 export default async function AdminDashboard() {
   const supabase = createServerComponentClient({ cookies });
 
+  // Fetch authenticated user
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const email = user?.email;
+
   // Fetch statistics
   const [
     { count: blogCount },
@@ -60,69 +66,82 @@ export default async function AdminDashboard() {
   ];
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Dashboard</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="max-w-7xl mx-auto px-6 py-10">
+      {/* Page Header */}
+      <div className="mb-10">
+        <h1 className="text-4xl font-bold text-gray-900">Admin Dashboard</h1>
+        <p className="text-gray-600 mt-2">
+          Welcome back, <span className="font-semibold">{email ?? "Admin"}</span>.
+        </p>
+      </div>
+
+      {/* Stats Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
         {stats.map((stat) => (
-          <Card key={stat.title}>
+          <Card
+            key={stat.title}
+            className="hover:shadow-md transition-shadow border border-gray-200"
+          >
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium text-gray-600">
                 {stat.title}
               </CardTitle>
-              <stat.icon className="h-4 w-4 text-green-600" />
+              <stat.icon className="h-5 w-5 text-green-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-3xl font-bold text-gray-900">
                 {stat.value}
               </div>
-              <p className="text-xs text-gray-500">{stat.description}</p>
+              <p className="text-xs text-gray-500 mt-1">{stat.description}</p>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Two Column Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Recent Activity */}
         <Card>
           <CardHeader>
             <CardTitle>Recent Activity</CardTitle>
             <CardDescription>Latest updates and changes</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              <div className="flex items-center">
+            <div className="space-y-3">
+              <div className="flex items-center text-sm text-gray-600">
                 <Clock className="h-4 w-4 text-gray-400 mr-2" />
-                <div className="text-sm text-gray-600">
-                  Last updated: {new Date().toLocaleDateString()}
-                </div>
+                Last updated: {new Date().toLocaleDateString()}
               </div>
+              
             </div>
           </CardContent>
         </Card>
 
+        {/* Quick Actions */}
         <Card>
           <CardHeader>
             <CardTitle>Quick Actions</CardTitle>
             <CardDescription>Common administrative tasks</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2">
+            <div className="space-y-3">
               <a
-                href="/admin/blog/new"
-                className="block p-2 text-sm text-green-600 hover:bg-green-50 rounded"
+                href="/admin/blogs/new"
+                className="block px-4 py-2 rounded-md text-sm font-medium text-green-700 border border-green-200 hover:bg-green-50 transition"
               >
-                Create new blog post
+                ➕ Create new blog post
               </a>
               <a
                 href="/admin/events/new"
-                className="block p-2 text-sm text-green-600 hover:bg-green-50 rounded"
+                className="block px-4 py-2 rounded-md text-sm font-medium text-green-700 border border-green-200 hover:bg-green-50 transition"
               >
-                Add new event
+                📅 Add new event
               </a>
               <a
                 href="/admin/gallery/new"
-                className="block p-2 text-sm text-green-600 hover:bg-green-50 rounded"
+                className="block px-4 py-2 rounded-md text-sm font-medium text-green-700 border border-green-200 hover:bg-green-50 transition"
               >
-                Upload gallery images
+                🖼️ Upload gallery images
               </a>
             </div>
           </CardContent>
