@@ -130,7 +130,7 @@ export default async function AdminDashboard() {
                 className="block px-4 py-2 rounded-md text-sm font-medium text-green-700 border border-green-200 hover:bg-green-50 transition"
               >
                 ➕ Create new blog post
-              </a>
+              </a> 
               <a
                 href="/admin/events/new"
                 className="block px-4 py-2 rounded-md text-sm font-medium text-green-700 border border-green-200 hover:bg-green-50 transition"
