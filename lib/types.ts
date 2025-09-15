@@ -2,14 +2,15 @@ export interface Event {
   id: number;
   title: string;
   description: string;
-  date: string; // ISO string from Supabase
+  date: string; // ISO date string
   time?: string;
   location: string;
   image?: string;
-  attendees?: number;
   category?: string;
   register_link?: string;
+  created_at?: string;
 }
+
 
 export interface BlogPost {
   id: number;
@@ -22,4 +23,15 @@ export interface BlogPost {
   image?: string;
   icon?: string;
   content?: string; // for full article view
+}
+
+export interface GalleryItem {
+  id: number; // bigint
+  title?: string;
+  description?: string;
+  image_url: string;
+  category?: string;
+  caption?: string;
+  event_id?: number; // bigint reference to Event
+  created_at?: string;
 }
