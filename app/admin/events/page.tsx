@@ -2,78 +2,67 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
+import { Event } from "@/lib/types";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
-interface Event {
-  id: string;
-  title: string;
-  description: string;
-  date: string;
-  time: string;
-  location: string;
-  image: string | null;
-  category: string | null;
-  register_link: string | null; // ✅ include this
-}
 
 export default function AdminEventsPage() {
   const [events, setEvents] = useState<Event[]>([]);
 
   useEffect(() => {
-    async function fetchEvents() {
-      const { data, error } = await supabase
-        .from("events")
-        .select("*")
-        .order("date", { ascending: false });
-
-      if (error) {
-        console.error("Error fetching events:", error);
-      } else {
-        setEvents(data as Event[]);
-      }
-    }
-
     fetchEvents();
   }, []);
 
-  return (
-    <div>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Manage Events</h1>
-        <Link href="/admin/events/new">
-          <Button>Add New Event</Button>
-        </Link>
-      </div>
+  async function fetchEvents() {
+    const { data } = await supabase
+      .from("events")
+      .select("*")
+      .order("date", { ascending: true });
+    setEvents(data || []);
+  }
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {events.map((event) => (
-          <Card key={event.id}>
-            <CardHeader>
-              <CardTitle>{event.title}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <p className="text-sm text-gray-600">{event.description}</p>
-              <p className="text-sm">
-                📅 {new Date(event.date).toLocaleDateString()} at {event.time}
-              </p>
-              <p className="text-sm">📍 {event.location}</p>
-              {event.category && <p className="text-sm">🏷 {event.category}</p>}
-              {event.register_link && (
-                <a
-                  href={event.register_link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-green-600 hover:underline text-sm"
+  async function deleteEvent(id: number) {
+    await supabase.from("events").delete().eq("id", id);
+    fetchEvents();
+  }
+
+  return (
+    <div className="max-w-5xl mx-auto py-12">
+      <h1 className="text-3xl font-bold mb-6">Manage Events</h1>
+      <Link href="/admin/events/new">
+        <Button className="mb-6">+ Add New Event</Button>
+      </Link>
+
+      <table className="w-full border">
+        <thead>
+          <tr className="border-b">
+            <th className="p-2 text-left">Title</th>
+            <th className="p-2 text-left">Date</th>
+            <th className="p-2 text-left">Category</th>
+            <th className="p-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {events.map((event) => (
+            <tr key={event.id} className="border-b">
+              <td className="p-2">{event.title}</td>
+              <td className="p-2">{event.date}</td>
+              <td className="p-2">{event.category}</td>
+              <td className="p-2 flex gap-2">
+                <Link href={`/admin/events/${event.id}/edit`}>
+                  <Button variant="outline">Edit</Button>
+                </Link>
+                <Button
+                  variant="destructive"
+                  onClick={() => deleteEvent(event.id)}
                 >
-                  Register here →
-                </a>
-              )}
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+                  Delete
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

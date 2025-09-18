@@ -1,5 +1,6 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
+import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -12,7 +13,6 @@ import {
   Calendar,
   Image,
   Users,
-  TrendingUp,
   Clock,
 } from "lucide-react";
 
@@ -25,45 +25,39 @@ export default async function AdminDashboard() {
   } = await supabase.auth.getUser();
   const email = user?.email;
 
-  // Fetch statistics
-  const [
-    { count: blogCount },
-    { count: eventCount },
-    { count: galleryCount },
-    { count: subscriberCount },
-  ] = await Promise.all([
-    supabase.from("blog_posts").select("*", { count: "exact", head: true }),
+  // Fetch statistics with error safety
+  const [blogs, events, gallery,] = await Promise.all([
+    supabase.from("posts").select("*", { count: "exact", head: true }),
     supabase.from("events").select("*", { count: "exact", head: true }),
-    supabase.from("event_gallery").select("*", { count: "exact", head: true }),
-    supabase.from("subscribers").select("*", { count: "exact", head: true }),
+    supabase.from("gallery").select("*", { count: "exact", head: true }),
+    
   ]);
 
   const stats = [
     {
       title: "Blog Posts",
-      value: blogCount || 0,
+      value: blogs.count ?? 0,
       icon: FileText,
       description: "Total published articles",
     },
     {
       title: "Events",
-      value: eventCount || 0,
+      value: events.count ?? 0,
       icon: Calendar,
-      description: "Upcoming and past events",
+      description: "Upcoming events",
     },
     {
       title: "Gallery Items",
-      value: galleryCount || 0,
+      value: gallery.count ?? 0,
       icon: Image,
-      description: "Event photos and media",
-    },
-    {
-      title: "Subscribers",
-      value: subscriberCount || 0,
-      icon: Users,
-      description: "Newsletter subscribers",
-    },
+      description: "Event photos and highlights",
+    },    
   ];
+
+  const lastUpdated = new Intl.DateTimeFormat("en-GB", {
+    dateStyle: "long",
+    timeStyle: "short",
+  }).format(new Date());
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-10">
@@ -77,22 +71,20 @@ export default async function AdminDashboard() {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-        {stats.map((stat) => (
+        {stats.map(({ title, value, icon: Icon, description }) => (
           <Card
-            key={stat.title}
+            key={title}
             className="hover:shadow-md transition-shadow border border-gray-200"
           >
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium text-gray-600">
-                {stat.title}
+                {title}
               </CardTitle>
-              <stat.icon className="h-5 w-5 text-green-600" />
+              <Icon className="h-5 w-5 text-green-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-gray-900">
-                {stat.value}
-              </div>
-              <p className="text-xs text-gray-500 mt-1">{stat.description}</p>
+              <div className="text-3xl font-bold text-gray-900">{value}</div>
+              <p className="text-xs text-gray-500 mt-1">{description}</p>
             </CardContent>
           </Card>
         ))}
@@ -107,12 +99,9 @@ export default async function AdminDashboard() {
             <CardDescription>Latest updates and changes</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-3">
-              <div className="flex items-center text-sm text-gray-600">
-                <Clock className="h-4 w-4 text-gray-400 mr-2" />
-                Last updated: {new Date().toLocaleDateString()}
-              </div>
-              
+            <div className="flex items-center text-sm text-gray-600">
+              <Clock className="h-4 w-4 text-gray-400 mr-2" />
+              Last updated: {lastUpdated}
             </div>
           </CardContent>
         </Card>
@@ -125,24 +114,24 @@ export default async function AdminDashboard() {
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              <a
+              <Link
                 href="/admin/blogs/new"
                 className="block px-4 py-2 rounded-md text-sm font-medium text-green-700 border border-green-200 hover:bg-green-50 transition"
               >
                 ➕ Create new blog post
-              </a> 
-              <a
+              </Link>
+              <Link
                 href="/admin/events/new"
                 className="block px-4 py-2 rounded-md text-sm font-medium text-green-700 border border-green-200 hover:bg-green-50 transition"
               >
                 📅 Add new event
-              </a>
-              <a
-                href="/admin/gallery/new"
+              </Link>
+              <Link
+                href="/admin/gallery"
                 className="block px-4 py-2 rounded-md text-sm font-medium text-green-700 border border-green-200 hover:bg-green-50 transition"
               >
                 🖼️ Upload gallery images
-              </a>
+              </Link>
             </div>
           </CardContent>
         </Card>

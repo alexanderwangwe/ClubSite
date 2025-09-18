@@ -1,12 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
+import { supabase } from "@/lib/supabaseClient";
 import EventForm, { EventFormData } from "@/components/admin/EventForm";
 
 export default function EditEventPage() {
-  const supabase = useSupabaseClient();
   const router = useRouter();
   const params = useParams();
   const id = Array.isArray(params?.id) ? params.id[0] : (params?.id as string);
@@ -16,17 +15,11 @@ export default function EditEventPage() {
 
   useEffect(() => {
     async function fetchEvent() {
-      const { data, error } = await supabase
-        .from("events")
-        .select("*")
-        .eq("id", id)
-        .single();
-      if (!error && data) {
-        setInitialData(data as EventFormData);
-      }
+      const { data } = await supabase.from("events").select("*").eq("id", id).single();
+      if (data) setInitialData(data as EventFormData);
     }
     if (id) fetchEvent();
-  }, [id, supabase]);
+  }, [id]);
 
   async function handleUpdate(form: EventFormData) {
     setLoading(true);
@@ -43,13 +36,9 @@ export default function EditEventPage() {
   if (!initialData) return <p>Loading event...</p>;
 
   return (
-    <div>
+    <div className="max-w-2xl mx-auto py-12">
       <h1 className="text-2xl font-bold mb-6">Edit Event</h1>
-      <EventForm
-        initialData={initialData}
-        onSubmit={handleUpdate}  
-        loading={loading}
-      />
+      <EventForm initialData={initialData} onSubmit={handleUpdate} loading={loading} />
     </div>
   );
 }
