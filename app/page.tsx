@@ -28,6 +28,9 @@ import Herosection from "@/components/Herosection";
 import AboutPreview from "@/components/AboutPreview";
 import CallToActionStrip from "@/components/CallToActionStrip";
 import UpcomingEventHighlight from "@/components/UpcomingEventHighlight";
+import GalleryGrid from "@/components/events/GalleryGrid";
+import EventCard from "@/components/events/EventCard";
+import GalleryCarousel from "@/components/GalleryCarousel";
 
 export default function HomePage() {
   return (
@@ -36,8 +39,10 @@ export default function HomePage() {
       <Navbar />
       {/* Hero Section */}
       <Herosection />
-      <AboutPreview />      
+      <AboutPreview /> 
+      <GalleryGrid />     
       <UpcomingEventHighlight />
+      <GalleryCarousel />
       <CallToActionStrip />
       <Footer />
     </div>
