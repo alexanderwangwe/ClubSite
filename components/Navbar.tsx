@@ -11,6 +11,7 @@ export default function Navbar() {
     { href: "/about", label: "About" },
     { href: "/blog", label: "Blog" },
     { href: "/events", label: "Events" },
+    { href: "/gallery", label: "Gallery" },
     { href: "/get-involved", label: "Get Involved" },
   ];
 
@@ -52,7 +53,7 @@ export default function Navbar() {
                 className={cn(
                   "font-medium px-2 py-1 rounded transition",
                   pathname === link.href
-                    ? "text-[#c8102e] bg-[#fbe9ec]"
+                    ? "text-[#c8102e] bg-[#e9eafb]"
                     : "text-[#00205b] hover:text-[#c8102e] hover:bg-[#fbe9ec]"
                 )}
                 aria-current={pathname === link.href ? "page" : undefined}

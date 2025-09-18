@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import EventGrid from "@/components/events/EventGrid";
 import { Event } from "@/lib/types";
-import Link from "next/link";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
 export default function EventsPage() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -46,17 +46,16 @@ export default function EventsPage() {
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl">
             Be part of our journey toward a sustainable future. From cleanups to
-            workshops, debates, and fairs — there’s always a way to get involved.
+            workshops, debates, and fairs — there’s always a way to get
+            involved.
           </p>
         </div>
       </section>
-
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4">
           <EventGrid events={events} />
         </div>
       </section>
-
       <Footer />
     </div>
   );
