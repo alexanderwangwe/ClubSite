@@ -217,21 +217,13 @@ export default function AboutPage() {
             Be part of a vibrant community of students leading the change toward a sustainable Strathmore.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/events">
+            <Link href="/get-involved">
               <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 <Users className="mr-2 h-5 w-5" />
                 Join Our Community
               </Button>
             </Link>
-            <Link href="/blog">
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-accent text-accent hover:bg-accent hover:text-accent-foreground bg-transparent"
-              >
-                Learn More
-              </Button>
-            </Link>
+            
           </div>
         </div>
       </section>

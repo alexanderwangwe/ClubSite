@@ -20,7 +20,8 @@ export default function BlogForm({ initialData, isEditing, blogId }: BlogFormPro
   const [content, setContent] = useState(initialData?.content || "");
   const [author, setAuthor] = useState(initialData?.author || "");
   const [category, setCategory] = useState(initialData?.category || "");
-  const [image, setImage] = useState(initialData?.image || "");
+  const [imageUrl, setImageUrl] = useState(initialData?.image || "");
+  const [file, setFile] = useState<File | null>(null);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -33,15 +34,38 @@ export default function BlogForm({ initialData, isEditing, blogId }: BlogFormPro
     setLoading(true);
     setError("");
 
+    let finalImageUrl = imageUrl;
+
+    // ✅ Upload file to Supabase Storage if provided
+    if (file) {
+      const filePath = `posts/${Date.now()}_${file.name}`;
+      const { data, error: uploadError } = await supabase.storage
+        .from("posts-images") // bucket name
+        .upload(filePath, file);
+
+      if (uploadError) {
+        setError(uploadError.message);
+        setLoading(false);
+        return;
+      }
+
+      // Get public URL
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from("post-images").getPublicUrl(filePath);
+
+      finalImageUrl = publicUrl;
+    }
+
     const blogData = {
       title,
       excerpt,
       content,
       author,
       category,
-      image,
+      image: finalImageUrl,
       date: new Date().toISOString(),
-      read_time: "5 min", // could auto-calc later
+      read_time: "5 min", // can calculate dynamically later
     };
 
     let res;
@@ -97,12 +121,22 @@ export default function BlogForm({ initialData, isEditing, blogId }: BlogFormPro
         onChange={(e) => setCategory(e.target.value)}
         required
       />
-      <Input
-        type="text"
-        placeholder="Image URL"
-        value={image}
-        onChange={(e) => setImage(e.target.value)}
-      />
+
+      {/* Either upload file OR paste a link */}
+      <div className="space-y-2">
+        <Input
+          type="text"
+          placeholder="Or paste Image URL"
+          value={imageUrl}
+          onChange={(e) => setImageUrl(e.target.value)}
+        />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setFile(e.target.files?.[0] || null)}
+        />
+      </div>
+
       {error && <p className="text-red-500">{error}</p>}
       <Button type="submit" disabled={loading}>
         {loading ? "Saving..." : isEditing ? "Update Blog" : "Create Blog"}

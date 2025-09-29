@@ -51,7 +51,7 @@ export default function BlogCard({ post }: BlogCardProps) {
           <Link href={`/blog/${post.id}`}>
             <Button
               variant="ghost"
-              className="text-accent hover:text-accent/80 p-0"
+              className="text-white bg-green-700 hover:bg-green-800 px-4 py-2 rounded-md shadow flex items-center"
             >
               Read More
               <ArrowRight className="ml-1 h-4 w-4" />

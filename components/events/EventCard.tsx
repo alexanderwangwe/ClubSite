@@ -10,71 +10,71 @@ interface EventCardProps {
 
 export default function EventCard({ event }: EventCardProps) {
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 group">
+    <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 group rounded-xl border border-green-100">
       <div className="relative">
         <img
           src={event.image || "/placeholder.svg"}
           alt={event.title}
-          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-300 rounded-t-xl"
         />
         {event.category && (
-          <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground">
+          <Badge className="absolute top-3 left-3 bg-green-700 text-white text-xs px-3 py-1 rounded-full shadow">
             {event.category}
           </Badge>
         )}
       </div>
 
-      <CardHeader>
-        <CardTitle className="text-xl font-bold">{event.title}</CardTitle>
+      <CardHeader className="pb-2">
+        <CardTitle className="text-lg font-semibold text-green-900">
+          {event.title}
+        </CardTitle>
       </CardHeader>
 
-      <CardContent className="space-y-4">
-        <p className="text-muted-foreground text-sm">
-          {event.description
-            ? event.description.length > 80
+      <CardContent className="space-y-3">
+        {event.description && (
+          <p className="text-gray-700 text-sm">
+            {event.description.length > 80
               ? event.description.slice(0, 80) + "..."
-              : event.description
-            : ""}
-        </p>
-            {
-              (() => {
-                const dateObj = new Date(event.date);
-                return isNaN(dateObj.getTime())
-                  ? "Date unavailable"
-                  : dateObj.toLocaleDateString();
-              })()
-            }
-        <div className="flex items-center text-sm text-muted-foreground space-x-4">
-          <div className="flex items-center">
-            <Calendar className="h-4 w-4 mr-1" />
-            {new Date(event.date).toLocaleDateString()}
+              : event.description}
+          </p>
+        )}
+
+        <div className="flex flex-wrap gap-4 text-sm text-gray-500">
+          <div className="flex items-center gap-1">
+            <Calendar className="h-4 w-4" />
+            {(() => {
+              const dateObj = new Date(event.date);
+              return isNaN(dateObj.getTime())
+                ? "Date unavailable"
+                : dateObj.toLocaleDateString();
+            })()}
           </div>
           {event.time && (
-            <div className="flex items-center">
-              <Clock className="h-4 w-4 mr-1" />
+            <div className="flex items-center gap-1">
+              <Clock className="h-4 w-4" />
               {event.time}
             </div>
           )}
         </div>
 
-        <div className="flex items-center text-sm text-muted-foreground">
-          <MapPin className="h-4 w-4 mr-1" />
+        <div className="flex items-center gap-1 text-sm text-gray-500">
+          <MapPin className="h-4 w-4" />
           {event.location}
         </div>
 
-        <div className="flex justify-end">
-          {event.register_link && (
+        {event.register_link && (
+          <div className="pt-2 flex justify-end">
             <a
               href={event.register_link}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Button className="bg-accent hover:bg-accent/90 text-accent-foreground">
+              <Button className="!bg-green-700 hover:bg-green-800 text-white px-6 rounded-md shadow">
                 RSVP
               </Button>
             </a>
-          )}
-        </div>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
