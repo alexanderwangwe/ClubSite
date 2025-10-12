@@ -6,7 +6,7 @@ export default function Herosection() {
       {/* Left */}
       <div>
         <h1 className="text-5xl font-bold text-green-800 leading-tight">
-          Strathmore Environment and <br /> Sustainability Club
+          Strathmore Environment and <br /> Sustainability Community
         </h1>
 
         <div className="flex justify-start mb-4 mt-4">
