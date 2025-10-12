@@ -26,7 +26,7 @@ export default function Footer() {
             </a>
             <a href="#">
               <img
-                src="/SESC_Logo.jpg"
+                src="/Logo.png"
                 alt="SESC Logo"
                 className="h-10 w-auto object-contain bg-white rounded shadow p-1"
               />
