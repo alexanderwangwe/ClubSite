@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   ArrowLeft,
   Users,
@@ -16,6 +17,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export default function AboutPage() {
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const videoId = "bKrzE03T6pc"; // YouTube ID
+
   return (
     <div className="min-h-screen bg-background font-sans text-foreground">
       {/* Navbar */}
@@ -77,7 +81,7 @@ export default function AboutPage() {
 
           <div className="relative">
             <Image
-              src="/heroimage.png"
+              src="/about-section.png"
               alt="SESC members during a cleanup activity"
               width={600}
               height={400}
@@ -139,8 +143,8 @@ export default function AboutPage() {
             </div>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               A student-led initiative redefining waste management through
-              awareness, and action <br /> starting with our pilot project in Siwaka
-              community.
+              awareness, and action <br /> starting with our pilot project in
+              Siwaka community.
             </p>
           </div>
 
@@ -173,6 +177,86 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
+
+        {/* Video Highlights Section - improved: lazy, accessible, privacy-aware */}
+        <section className="py-20 bg-muted/50">
+          <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center">
+            <h2 className="text-3xl font-bold font-serif mb-4">
+              Watch Our Highlights
+            </h2>
+            <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
+              Explore moments from our Mazingira day activities.
+            </p>
+
+            <figure className="mx-auto max-w-4xl">
+              {/* Poster + play button: only load YouTube iframe after explicit play to avoid third-party cookies and improve perf */}
+              {!videoLoaded ? (
+                <div className="relative rounded-2xl overflow-hidden shadow-lg border border-border bg-black">
+                  <img
+                    src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
+                    alt="Video thumbnail: WasteWise x SESC highlights"
+                    className="w-full h-auto object-cover block"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <button
+                    onClick={() => setVideoLoaded(true)}
+                    className="absolute inset-0 m-auto w-20 h-20 rounded-full bg-white/90 flex items-center justify-center shadow-lg hover:scale-105 transform transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-300"
+                    aria-label="Play SESC highlights video"
+                  >
+                    <svg
+                      className="w-8 h-8 text-green-700"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden
+                    >
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </button>
+
+                  <figcaption className="p-4 text-left text-sm text-gray-300 bg-gradient-to-t from-black/60 to-transparent">
+                    <div className="font-semibold text-white">
+                      Wastewise and SESC Mazingira Day Highlights
+                    </div>
+                    <div className="text-xs">
+                    2025 Cleanup Day Activation Drive!
+                    </div>
+                    <div className="mt-2 text-xs text-gray-400">
+                      Videos load only after you press play to respect privacy
+                      and reduce third-party cookies.
+                    </div>
+                  </figcaption>
+                </div>
+              ) : (
+                <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg border border-border">
+                  {/* privacy-enhanced YouTube embed; no autoplay */}
+                  <iframe
+                    src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1`}
+                    title="SESC Highlights — YouTube"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    className="w-full h-full"
+                    loading="lazy"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                  />
+                </div>
+              )}
+              <div className="mt-4 text-sm text-muted-foreground">
+              
+                <span className="mx-2">•</span>
+                <a
+                  href={`https://www.youtube.com/watch?v=${videoId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline"
+                >
+                  📺 Watch on YouTube
+                </a>
+              </div>
+            </figure>
+          </div>
+        </section>
       </section>
 
       {/* Impact Section */}

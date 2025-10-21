@@ -80,9 +80,40 @@ export default function UpcomingEventHighlight() {
           ) : error ? (
             <p className="text-center text-red-600">{error}</p>
           ) : events.length === 0 ? (
-            <p className="text-center text-gray-500">No upcoming events yet.
-            
-            </p>
+            <div className="flex justify-center">
+              <div
+                role="status"
+                className="bg-white rounded-lg shadow-sm p-8 max-w-xl text-center"
+              >
+                <Calendar
+                  className="mx-auto text-green-700 h-8 w-8"
+                  aria-hidden="true"
+                />
+                <h3 className="mt-4 text-lg font-semibold text-gray-900">
+                  No upcoming events
+                </h3>
+                <p className="mt-2 text-gray-600">
+                  We don’t have any scheduled events right now. Check back soon
+                  or explore other ways to get involved.
+                </p>
+
+                <div className="mt-4 flex justify-center gap-3">
+                  <Link
+                    href="/events"
+                    className="text-green-700 hover:text-green-900 font-semibold underline"
+                  >
+                    Browse events
+                  </Link>
+
+                  <Link
+                    href="/get-involved"
+                    className="inline-block bg-green-700 text-white px-3 py-2 rounded hover:bg-green-800 transition"
+                  >
+                    Get involved
+                  </Link>
+                </div>
+              </div>
+            </div>
           ) : (
             <div className="grid md:grid-cols-3 gap-8">
               {events.map((event) => (
@@ -142,15 +173,6 @@ export default function UpcomingEventHighlight() {
               ))}
             </div>
           )}
-        </div>
-
-        <div className="text-center mt-10">
-          <Link
-            href="/events"
-            className="text-green-700 hover:text-green-900 font-semibold underline"
-          >
-            View All Events →
-          </Link>
         </div>
       </div>
     </section>

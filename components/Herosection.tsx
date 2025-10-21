@@ -1,47 +1,90 @@
+import Image from "next/image";
+import Link from "next/link";
 import { Leaf, Recycle, Sun, Cloud } from "lucide-react";
 
 export default function Herosection() {
   return (
-    <section className="relative grid md:grid-cols-2 gap-8 px-12 py-16 items-center bg-green-50 overflow-hidden">
-      {/* Left */}
-      <div>
-        <h1 className="text-5xl font-bold text-green-800 leading-tight">
-          Strathmore Environment and <br /> Sustainability Community
+    <section
+      aria-labelledby="hero-heading"
+      className="relative grid md:grid-cols-2 gap-8 px-6 sm:px-10 lg:px-16 py-12 md:py-20 items-center bg-green-50 overflow-hidden"
+    >
+      {/* Left: copy */}
+      <div className="z-10">
+        <p className="inline-flex items-center bg-green-600 text-white px-3 py-1 rounded-full text-sm font-medium mb-4">
+          Sustainability in Action
+        </p>
+
+        <h1
+          id="hero-heading"
+          className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-green-800 leading-tight"
+        >
+          Strathmore Environment & Sustainability Community
         </h1>
 
-        <div className="flex justify-start mb-4 mt-4">
-          <span className="inline-flex items-center bg-green-600 text-white px-4 py-2 rounded-full shadow-md text-sm font-medium">
-            Sustainability in Action
-          </span>
-        </div>
+        <p className="mt-4 text-gray-700 max-w-xl text-base sm:text-lg">
+          We are a student-led organization at Strathmore University dedicated to
+          promoting environmental awareness and sustainable practices on campus
+          and beyond.
+        </p>
 
-        <a
-          href="/about"
-          className="mt-6 inline-block px-6 py-3 bg-green-700 text-white rounded-md hover:bg-green-900 transition shadow-md"
-        >
-          Learn More
-        </a>
+        <div className="mt-6 flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <Link
+            href="/get-involved"
+            className="inline-flex items-center justify-center px-5 py-3 bg-green-700 text-white rounded-md font-semibold shadow-md hover:bg-green-800 transition focus:outline-none focus-visible:ring-4 focus-visible:ring-green-200"
+            aria-label="Join the club - Get involved"
+          >
+            Join the Club
+            <span className="sr-only"> — opens Get Involved page</span>
+          </Link>
+
+          <Link
+            href="/about"
+            className="inline-flex items-center justify-center px-5 py-3 border border-green-700 text-green-700 rounded-md font-semibold bg-white hover:bg-green-50 transition focus:outline-none focus-visible:ring-4 focus-visible:ring-green-100"
+            aria-label="Learn more about SESC"
+          >
+            Learn More
+          </Link>
+        </div>
       </div>
 
-      {/* Right */}
-      <div className="relative">
-        {/* Background blob */}
-        <div className="absolute -top-6 -left-6 w-full h-full bg-green-200 rounded-[60%] rotate-6"></div>
-
-        {/* Hero Image */}
-        <img
-          src="/heroimage.png"
-          alt="Volunteers"
-          width={500}
-          height={400}
-          className="relative rounded-[40%] shadow-lg"
+      {/* Right: image + decorative elements */}
+      <div className="relative w-full flex justify-center items-center">
+        {/* Decorative background blob (non-interactive) */}
+        <div
+          aria-hidden="true"
+          className="absolute -inset-y-6 -left-6 w-[120%] h-[120%] bg-green-200 rounded-[60%] rotate-6 pointer-events-none"
         />
 
-        {/* Decorative SVGs */}
-        <Leaf className="absolute -top-6 left-6 text-green-600 w-8 h-8 animate-bounce" />
-        <Recycle className="absolute bottom-6 -left-10 text-green-700 w-10 h-10 animate-spin" />
-        <Sun className="absolute -top-12 right-8 text-yellow-400 w-12 h-12 animate-pulse" />
-        <Cloud className="absolute bottom-12 right-0 text-gray-400 w-14 h-14 opacity-60" />
+        {/* Hero image (optimized) */}
+        <div className="relative w-full max-w-md sm:max-w-lg md:max-w-full">
+          <Image
+            src="/heroimage.png"
+            alt="Students volunteering outdoors planting trees"
+            width={900}
+            height={640}
+            className="relative rounded-[28%] shadow-lg object-cover"
+            sizes="(max-width: 640px) 320px, (max-width: 1024px) 600px, 900px"
+            priority
+          />
+        </div>
+
+        {/* Decorative icons (aria-hidden, respect reduced motion) */}
+        <Leaf
+          aria-hidden="true"
+          className="absolute -top-4 left-6 text-green-600 w-8 h-8 motion-safe:animate-bounce opacity-90"
+        />
+        <Recycle
+          aria-hidden="true"
+          className="absolute bottom-6 -left-8 text-green-700 w-10 h-10 motion-safe:animate-spin motion-safe:[animation-duration:3s] opacity-95"
+        />
+        <Sun
+          aria-hidden="true"
+          className="absolute -top-10 right-8 text-yellow-400 w-12 h-12 motion-safe:animate-pulse opacity-90"
+        />
+        <Cloud
+          aria-hidden="true"
+          className="absolute bottom-12 right-0 text-gray-400 w-14 h-14 opacity-60"
+        />
       </div>
     </section>
   );
