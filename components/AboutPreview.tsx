@@ -3,10 +3,20 @@ import Image from "next/image";
 
 export default function AboutPreview() {
   return (
-    <section id="about" className="px-12 py-20 bg-white">
+    <section
+      id="about"
+      className="px-4 sm:px-6 lg:px-12 py-20 bg-white"
+      role="region"
+      aria-labelledby="about-heading"
+    >
       <div className="max-w-5xl mx-auto text-center">
-        <h2 className="text-3xl font-bold text-green-800">About Us</h2>
-        <p className="mt-6 text-gray-600 leading-relaxed">
+        <h2
+          id="about-heading"
+          className="text-2xl sm:text-3xl font-bold text-green-800"
+        >
+          About Us
+        </h2>
+        <p className="mt-6 text-gray-600 leading-relaxed text-base sm:text-lg">
           Strathmore Environment Sustainability Club’s (SESC) main goal is to
           create a sustainable environment as change agents for a better future
           through use of eco-friendly means and conservation measures. This is
