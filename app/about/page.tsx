@@ -253,7 +253,7 @@ export default function AboutPage() {
 
                   {/* Caption overlay */}
                   <span className="absolute bottom-4 left-4 right-4 text-sm text-gray-800 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-md shadow-sm">
-                    Watch: SESC — Community Impact (Click to play)
+                    Watch: WasteWise and SESC on Mazingira day 2025 (Click to play)
                   </span>
                 </button>
               )}
