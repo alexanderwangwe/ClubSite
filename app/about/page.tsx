@@ -198,7 +198,7 @@ export default function AboutPage() {
             Watch Our Journey
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-10">
-            Discover how SESC members are making a difference through
+            Discover how WasteWise and SESC members are making a difference through
             innovation, leadership, and action.
           </p>
 
