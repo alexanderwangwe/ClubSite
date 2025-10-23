@@ -1,4 +1,3 @@
-// app/admin/blogs/[id]/edit/page.tsx
 "use client";
 
 import { useEffect, useState } from "react";
