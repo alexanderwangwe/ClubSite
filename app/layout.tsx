@@ -13,14 +13,17 @@ export const metadata: Metadata = {
   keywords:
     "Strathmore University, Environmental Club, Siwaka, Sustainability, Waste Management, Clean Campus, Environmental Awareness, Tree Planting, Recycling",
   authors: [{ name: "Strathmore Environmental Club" }],
+  metadataBase: new URL("http://localhost:3000"),
+  icons: {
+    icon: "/favicon.ico",
+  },
   openGraph: {
     title: "Strathmore Environmental Club ",
     description:
       "Building a sustainable future for our campus community through environmental action and education.",
     type: "website",
-    locale: "en_US",
+    locale: "en_KE",
   },
-  metadataBase: new URL("http://localhost:3000"), 
 };
 
 export default function RootLayout({
