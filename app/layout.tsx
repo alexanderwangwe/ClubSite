@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
   },
-  metadataBase: new URL("http://localhost:3000"), // ✅ correct for dev
+  metadataBase: new URL("http://localhost:3000"), 
 };
 
 export default function RootLayout({
@@ -33,7 +33,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} min-h-screen bg-background antialiased`}
       >
-        {/* ✅ Supabase now properly wraps children */}
+        {/* Supabase wraps children */}
         <SupabaseProvider>
           {children}
           <Toaster position="top-center" />

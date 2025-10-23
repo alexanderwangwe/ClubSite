@@ -12,8 +12,7 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const supabase = useSupabaseClient(); // ✅ correct way with helpers
-
+  const supabase = useSupabaseClient(); 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setError("");
