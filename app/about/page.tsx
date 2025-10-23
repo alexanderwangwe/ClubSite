@@ -18,6 +18,7 @@ import Footer from "@/components/Footer";
 
 export default function AboutPage() {
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [iframeLoading, setIframeLoading] = useState(false); // added
   const videoId = "bKrzE03T6pc"; // YouTube ID
 
   return (
@@ -55,7 +56,9 @@ export default function AboutPage() {
             <div className="mb-12">
               <div className="flex items-center mb-4">
                 <Target className="h-8 w-8 text-green-700 mr-3" />
-                <h2 className="text-3xl font-bold text-green-900">Our Mission</h2>
+                <h2 className="text-3xl font-bold text-green-900">
+                  Our Mission
+                </h2>
               </div>
               <p className="text-gray-700 leading-relaxed text-lg">
                 To inspire and empower the Strathmore community to take
@@ -67,7 +70,9 @@ export default function AboutPage() {
             <div>
               <div className="flex items-center mb-4">
                 <Lightbulb className="h-8 w-8 text-green-600 mr-3" />
-                <h2 className="text-3xl font-bold text-green-900">Our Vision</h2>
+                <h2 className="text-3xl font-bold text-green-900">
+                  Our Vision
+                </h2>
               </div>
               <p className="text-gray-700 leading-relaxed text-lg">
                 A future where every member of Strathmore actively contributes
@@ -103,17 +108,23 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-3 gap-10">
             {[
               {
-                icon: <Heart className="h-12 w-12 text-green-700 mx-auto mb-4" />,
+                icon: (
+                  <Heart className="h-12 w-12 text-green-700 mx-auto mb-4" />
+                ),
                 title: "Community First",
                 desc: "We collaborate with students, residents, and organizations to inspire collective responsibility.",
               },
               {
-                icon: <Recycle className="h-12 w-12 text-green-600 mx-auto mb-4" />,
+                icon: (
+                  <Recycle className="h-12 w-12 text-green-600 mx-auto mb-4" />
+                ),
                 title: "Sustainability",
                 desc: "Every project is designed for long-term environmental and social impact.",
               },
               {
-                icon: <Users className="h-12 w-12 text-green-700 mx-auto mb-4" />,
+                icon: (
+                  <Users className="h-12 w-12 text-green-700 mx-auto mb-4" />
+                ),
                 title: "Education",
                 desc: "We believe informed individuals are powerful change agents — we learn, share, and act.",
               },
@@ -123,7 +134,9 @@ export default function AboutPage() {
                 className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
                 {v.icon}
-                <h4 className="text-2xl font-semibold mb-3 text-green-900">{v.title}</h4>
+                <h4 className="text-2xl font-semibold mb-3 text-green-900">
+                  {v.title}
+                </h4>
                 <p className="text-gray-600">{v.desc}</p>
               </div>
             ))}
@@ -178,40 +191,151 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* YouTube Video Section */}
+      {/* YouTube Video Section (decorated, improved UX) */}
       <section className="py-24 bg-gradient-to-b from-white to-green-50/50 border-t border-border">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h2 className="text-4xl font-extrabold text-green-900 mb-6">
             Watch Our Journey
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-10">
-            Discover how SESC members are making a difference through innovation,
-            leadership, and action.
+            Discover how SESC members are making a difference through
+            innovation, leadership, and action.
           </p>
 
-          <div className="relative aspect-video max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-lg border border-gray-200">
-            {!videoLoaded && (
-              <div
-                className="absolute inset-0 flex items-center justify-center bg-gray-100"
-                onClick={() => setVideoLoaded(true)}
+          <div className="relative max-w-4xl mx-auto">
+            {/* decorative background shapes */}
+            <div className="pointer-events-none absolute -top-8 -left-8 w-40 h-40 rounded-full bg-gradient-to-tr from-green-100 to-white opacity-80 blur-3xl transform -rotate-12"></div>
+            <div className="pointer-events-none absolute -bottom-10 -right-10 w-56 h-56 rounded-2xl bg-gradient-to-br from-white to-green-50 opacity-60 blur-2xl"></div>
+
+            <div className="relative aspect-video rounded-3xl overflow-hidden shadow-xl border border-gray-200">
+              {/* subtle framed ring */}
+              <div className="absolute inset-0 pointer-events-none rounded-3xl ring-1 ring-green-50/60"></div>
+
+              {/* Clickable thumbnail with large play affordance */}
+              {!videoLoaded && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setVideoLoaded(true);
+                    setIframeLoading(true);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setVideoLoaded(true);
+                      setIframeLoading(true);
+                    }
+                  }}
+                  aria-label="Play SESC video"
+                  className="absolute inset-0 z-10 flex items-center justify-center bg-gradient-to-b from-white/60 to-white/40 hover:from-white/80 focus:outline-none focus:ring-4 focus:ring-green-200"
+                >
+                  {/* Thumbnail */}
+                  <Image
+                    src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+                    alt="YouTube Video Thumbnail"
+                    fill
+                    className="object-cover cursor-pointer"
+                  />
+
+                  {/* Play button overlay */}
+                  <span className="absolute z-20 flex items-center justify-center">
+                    <span className="rounded-full bg-black/70 p-4 shadow-lg transform transition-transform hover:scale-105">
+                      <svg
+                        className="w-9 h-9 text-white"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </span>
+                  </span>
+
+                  {/* Caption overlay */}
+                  <span className="absolute bottom-4 left-4 right-4 text-sm text-gray-800 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-md shadow-sm">
+                    Watch: SESC — Community Impact (Click to play)
+                  </span>
+                </button>
+              )}
+
+              {/* Embedded iframe loads only after user interaction */}
+              {videoLoaded && (
+                <div className="w-full h-full relative">
+                  {/* Loading overlay while iframe initializes */}
+                  {iframeLoading && (
+                    <div className="absolute inset-0 z-20 flex items-center justify-center bg-white/60">
+                      <svg
+                        className="animate-spin h-10 w-10 text-green-700"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          d="M4 12a8 8 0 018-8"
+                          strokeWidth="4"
+                        ></path>
+                      </svg>
+                    </div>
+                  )}
+
+                  <iframe
+                    className="w-full h-full"
+                    src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
+                    title="SESC Video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    loading="lazy"
+                    onLoad={() => setIframeLoading(false)}
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* CTA + external link */}
+            <div className="mt-6 flex items-center justify-center gap-4">
+              <a
+                href={`https://youtu.be/${videoId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-white text-green-700 border border-green-200 hover:shadow-md transition"
               >
-                <Image
-                  src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
-                  alt="YouTube Video Thumbnail"
-                  fill
-                  className="object-cover cursor-pointer"
-                />
-              </div>
-            )}
-            {videoLoaded && (
-              <iframe
-                className="w-full h-full"
-                src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
-                title="SESC Video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            )}
+                Open on YouTube
+                <svg
+                  className="w-4 h-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    d="M14 3h7v7"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M10 14L21 3"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M21 21H3V3"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </a>
+
+            </div>
           </div>
         </div>
       </section>

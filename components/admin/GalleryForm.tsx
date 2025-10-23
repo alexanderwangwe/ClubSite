@@ -5,6 +5,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 export interface GalleryFormData {
   title?: string;
@@ -131,7 +132,7 @@ export default function GalleryForm({
 
       if (dbError) throw dbError;
 
-      alert("Photo saved successfully!");
+      toast.success("Photo saved successfully!");
       setFile(null);
     } catch (err: any) {
       console.error("Error saving photo:", err);

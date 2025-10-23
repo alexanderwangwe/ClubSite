@@ -63,7 +63,7 @@ export default async function BlogDetailPage({
         <div className="max-w-4xl mx-auto px-6">
           {imageSrc && (
             <div className="w-full rounded-xl mb-8 shadow-md overflow-hidden">
-              {/* next/image requires remoteDomains in next.config.js for external hosts */}
+              {/* next/image requires remotePatterns in next.config.js for external hosts (Next.js 14+) */}
               <Image
                 src={imageSrc}
                 alt={post.title}
