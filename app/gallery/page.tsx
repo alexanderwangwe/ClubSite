@@ -12,10 +12,7 @@ export default function GalleryPage() {
   const [items, setItems] = useState<GalleryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  // lightbox state
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
   const mountedRef = useRef(true);
 
   useEffect(() => {
@@ -53,7 +50,6 @@ export default function GalleryPage() {
     };
   }, []);
 
-  // Lightbox keyboard & body-scroll lock (uses full items list, no filter)
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (activeIndex === null) return;
@@ -70,146 +66,125 @@ export default function GalleryPage() {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeIndex, items]);
 
   function openLightbox(index: number) {
     setActiveIndex(index);
   }
-
   function closeLightbox() {
     setActiveIndex(null);
   }
-
   function showPrev() {
     if (activeIndex === null) return;
-    setActiveIndex((i) =>
-      i === null ? null : (i - 1 + items.length) % items.length
-    );
+    setActiveIndex((i) => (i === null ? null : (i - 1 + items.length) % items.length));
   }
-
   function showNext() {
     if (activeIndex === null) return;
     setActiveIndex((i) => (i === null ? null : (i + 1) % items.length));
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white text-gray-900">
       <Navbar />
 
-      <section className="bg-gradient-to-r from-primary/10 to-accent/10 py-16">
-        <div className="max-w-7xl mx-auto px-4">
+      <section className="bg-gradient-to-r from-green-50 to-emerald-100 py-20">
+        <div className="max-w-7xl mx-auto px-6">
           <Link
             href="/"
-            className="inline-flex items-center text-primary hover:text-primary/80 mb-6"
+            className="inline-flex items-center text-green-700 hover:text-green-800 mb-6 transition-colors"
           >
-            <ArrowLeft className="h-4 w-4 mr-2" /> Back to Home
+            <ArrowLeft className="h-5 w-5 mr-2" /> Back to Home
           </Link>
 
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Gallery</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl">
-            Moments from our events and initiatives — browse and view
-            high-resolution photos.
+          <h2 className="text-5xl font-bold text-green-900 mb-4 leading-tight">
+            Gallery
+          </h2>
+          <p className="text-lg md:text-xl text-gray-700 max-w-3xl">
+            Explore moments that define our journey toward sustainability.
           </p>
         </div>
       </section>
 
-      <main className="max-w-7xl mx-auto px-4 py-16">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8">
-          <h1 className="text-3xl font-bold">Photos</h1>
-
-          <div className="flex items-center gap-3 w-full md:w-auto">
-            <div className="text-sm text-muted-foreground ml-2">
-              {loading
-                ? "Loading…"
-                : `${items.length} photo${items.length !== 1 ? "s" : ""}`}
-            </div>
+      <main className="max-w-7xl mx-auto px-6 py-20">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-10">
+          <h1 className="text-4xl font-semibold tracking-tight">Photos</h1>
+          <div className="text-base text-gray-500">
+            {loading ? "Loading…" : `${items.length} photo${items.length !== 1 ? "s" : ""}`}
           </div>
         </div>
 
         {error ? (
-          <div className="text-center py-12 text-red-600">
+          <div className="text-center py-20 text-red-600">
             <p>{error}</p>
             <button
               onClick={() => location.reload()}
-              className="mt-4 px-4 py-2 bg-primary text-primary-foreground rounded-md"
+              className="mt-6 px-5 py-2 bg-green-700 text-white rounded-md hover:bg-green-800 transition"
             >
               Retry
             </button>
           </div>
         ) : loading && items.length === 0 ? (
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-8">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div
-                key={i}
-                className="animate-pulse h-60 bg-gray-100 rounded-lg"
-              />
+              <div key={i} className="animate-pulse h-64 bg-gray-100 rounded-xl" />
             ))}
           </div>
         ) : items.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-lg font-semibold mb-2">No photos available</p>
-            <p className="text-muted-foreground mb-4">
-              Check back later or get involved to help capture moments.
+          <div className="text-center py-20">
+            <p className="text-xl font-semibold mb-3">No photos available</p>
+            <p className="text-gray-600 mb-6">
+              Check back later or join our team to capture the next event.
             </p>
             <Link
               href="/get-involved"
-              className="inline-flex px-4 py-2 bg-green-700 text-white rounded-md"
+              className="inline-flex px-5 py-3 bg-green-700 text-white rounded-md hover:bg-green-800 transition"
             >
               Get Involved
             </Link>
           </div>
         ) : (
           <>
-            {/* Masonry-like layout using CSS columns for a creative layout */}
-            <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+            {/* Masonry layout */}
+            <div className="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5">
               {items.map((item, i) => (
                 <figure
                   key={item.id}
-                  className="break-inside-avoid-column mb-4 rounded-lg overflow-hidden shadow-lg group cursor-pointer relative"
+                  className="break-inside-avoid overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all cursor-pointer group relative"
                   onClick={() => openLightbox(i)}
                 >
                   <img
                     src={item.image_url}
                     alt={item.title || "Gallery image"}
-                    className="w-full block object-cover"
+                    className="w-full object-cover transform group-hover:scale-105 transition duration-300"
                     loading="lazy"
-                    decoding="async"
                   />
-
-                  <figcaption className="absolute left-0 right-0 bottom-0 p-3 bg-gradient-to-t from-black/60 to-transparent text-white">
+                  <figcaption className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/70 to-transparent text-white">
                     <div className="flex items-center justify-between">
                       <div>
-                        {item.title && (
-                          <div className="font-semibold">{item.title}</div>
-                        )}
+                        {item.title && <div className="font-semibold text-base">{item.title}</div>}
                         {(item as any).events?.title && (
-                          <div className="text-sm opacity-90">
-                            {(item as any).events.title}
-                          </div>
+                          <div className="text-sm opacity-80">{(item as any).events.title}</div>
                         )}
                       </div>
-
-                      <div className="text-xs opacity-90">View</div>
+                      <span className="text-xs opacity-75">View</span>
                     </div>
                   </figcaption>
                 </figure>
               ))}
             </div>
 
-            <div className="mt-8 text-center">
+            <div className="mt-12 text-center">
               <Link
-                href="/gallery"
-                className="text-green-700 hover:text-green-900 font-medium"
+                href="/events"
+                className="inline-flex items-center text-green-700 hover:text-green-900 font-medium text-lg transition"
               >
-                View all images →
+                View upcoming events <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
             </div>
           </>
         )}
       </main>
 
-      {/* Lightbox */}
       {activeIndex !== null && items[activeIndex] && (
         <div
           role="dialog"
@@ -217,25 +192,21 @@ export default function GalleryPage() {
           aria-label={items[activeIndex].title || "Image preview"}
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
         >
-          <div
-            className="absolute inset-0 bg-black/70"
-            onClick={closeLightbox}
-            aria-hidden="true"
-          />
+          <div className="absolute inset-0 bg-black/80" onClick={closeLightbox} aria-hidden="true" />
 
           <div className="relative z-10 max-w-[90vw] max-h-[90vh] w-full flex flex-col">
             <button
               onClick={closeLightbox}
               aria-label="Close"
-              className="absolute top-3 right-3 z-20 bg-white/90 rounded-full p-2 shadow hover:bg-white focus:outline-none"
+              className="absolute top-3 right-3 bg-white/90 rounded-full p-2 shadow hover:bg-white transition"
             >
-              <X className="w-4 h-4 text-gray-800" />
+              <X className="w-5 h-5 text-gray-800" />
             </button>
 
             <button
               onClick={showPrev}
               aria-label="Previous image"
-              className="absolute left-3 top-1/2 -translate-y-1/2 z-20 bg-white/90 rounded-full p-2 shadow hover:bg-white focus:outline-none"
+              className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/90 rounded-full p-2 shadow hover:bg-white transition"
             >
               <ArrowLeft className="w-5 h-5 text-gray-800" />
             </button>
@@ -243,36 +214,29 @@ export default function GalleryPage() {
             <button
               onClick={showNext}
               aria-label="Next image"
-              className="absolute right-3 top-1/2 -translate-y-1/2 z-20 bg-white/90 rounded-full p-2 shadow hover:bg-white focus:outline-none"
+              className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/90 rounded-full p-2 shadow hover:bg-white transition"
             >
               <ArrowRight className="w-5 h-5 text-gray-800" />
             </button>
 
-            <div className="flex-1 overflow-auto flex items-center justify-center">
+            <div className="flex-1 flex items-center justify-center">
               <img
                 src={items[activeIndex].image_url}
                 alt={items[activeIndex].title || "Gallery image"}
                 className="max-h-[80vh] max-w-full object-contain rounded-md shadow-lg"
-                loading="eager"
-                decoding="async"
               />
             </div>
 
-            <div className="mt-3 bg-white/95 p-4 rounded-b-md shadow-inner text-gray-900">
+            <div className="mt-4 bg-white/95 p-4 rounded-b-md text-gray-900">
               {items[activeIndex].title && (
-                <div className="font-semibold text-lg">
-                  {items[activeIndex].title}
-                </div>
+                <div className="font-semibold text-lg">{items[activeIndex].title}</div>
               )}
               {items[activeIndex].description && (
-                <p className="text-sm text-muted-foreground mt-1">
-                  {items[activeIndex].description}
-                </p>
+                <p className="text-sm text-gray-600 mt-1">{items[activeIndex].description}</p>
               )}
               {(items[activeIndex] as any).events?.title && (
-                <p className="text-sm mt-2 text-gray-600">
-                  Event:{" "}
-                  <strong>{(items[activeIndex] as any).events.title}</strong>
+                <p className="text-sm mt-2 text-gray-700">
+                  Event: <strong>{(items[activeIndex] as any).events.title}</strong>
                 </p>
               )}
             </div>

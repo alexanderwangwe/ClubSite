@@ -21,7 +21,6 @@ export default function EventsPage() {
     return () => {
       mountedRef.current = false;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function fetchEvents() {
@@ -66,10 +65,10 @@ export default function EventsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white text-gray-800">
       <Navbar />
 
-      {/* Skip link */}
+      {/* Accessibility Skip Link */}
       <a
         href="#events-main"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 bg-white p-2 rounded shadow"
@@ -77,86 +76,94 @@ export default function EventsPage() {
         Skip to content
       </a>
 
-      <section className="bg-gradient-to-r from-primary/10 to-accent/10 py-16">
-        <div className="max-w-7xl mx-auto px-4">
+      {/* Header Section */}
+      <section className="bg-gradient-to-r from-green-50 to-green-100 py-20 border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-6 text-center md:text-left">
           <Link
             href="/"
-            className="inline-flex items-center text-primary hover:text-primary/80 mb-6"
+            className="inline-flex items-center text-green-700 hover:text-green-900 mb-6 transition-colors"
           >
             <ArrowLeft className="h-4 w-4 mr-2" /> Back to Home
           </Link>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-green-900 mb-4">
             Upcoming SESC Events
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl">
+
+          <p className="text-lg sm:text-xl text-gray-600 leading-relaxed max-w-3xl">
             Be part of our journey toward a sustainable future. From cleanups to
-            workshops, debates, and fairs — there’s always a way to get
-            involved.
+            workshops, debates, and fairs — there’s always a way to get involved.
           </p>
         </div>
       </section>
 
-      <main id="events-main" className="py-16" role="main" aria-live="polite">
-        <div className="max-w-7xl mx-auto px-4">
-          {/* Status / helper */}
-          <div className="mb-6">
+      {/* Events Section */}
+      <main
+        id="events-main"
+        className="py-20 bg-gray-50"
+        role="main"
+        aria-live="polite"
+      >
+        <div className="max-w-6xl mx-auto px-6">
+          {/* Status / Helper */}
+          <div className="mb-8">
             {loading && events.length === 0 ? (
-              <p className="text-sm text-muted-foreground">Loading events…</p>
+              <p className="text-sm text-gray-500">Loading events…</p>
             ) : error ? (
               <div className="text-sm text-red-600">
                 <p>{error}</p>
-                <div className="mt-3">
+                <div className="mt-4">
                   <button
                     onClick={fetchEvents}
-                    className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
+                    className="inline-flex items-center px-4 py-2 bg-green-700 text-white rounded-md hover:bg-green-800 transition-colors"
                   >
                     Retry
                   </button>
                 </div>
               </div>
             ) : events.length === 0 ? (
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-gray-500">
                 No upcoming events currently scheduled.
               </p>
             ) : (
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-gray-600">
                 {events.length} upcoming event{events.length !== 1 ? "s" : ""}
               </p>
             )}
           </div>
 
-          {/* Loading skeleton */}
+          {/* Loading Skeleton */}
           {loading && events.length === 0 ? (
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-3 gap-8 animate-pulse">
               {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="animate-pulse space-y-3">
-                  <div className="h-40 bg-gray-100 rounded-lg" />
-                  <div className="h-4 bg-gray-100 rounded w-3/4" />
-                  <div className="h-3 bg-gray-100 rounded w-1/2" />
+                <div key={i} className="space-y-3">
+                  <div className="h-48 bg-gray-200 rounded-lg" />
+                  <div className="h-4 bg-gray-200 rounded w-3/4" />
+                  <div className="h-3 bg-gray-200 rounded w-1/2" />
                 </div>
               ))}
             </div>
           ) : events.length === 0 ? (
-            // Empty state with CTAs
+            /* Empty State */
             <div className="flex justify-center">
-              <div className="bg-white rounded-lg shadow p-8 max-w-xl text-center">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  No upcoming events
+              <div className="bg-white rounded-2xl shadow-md p-10 max-w-xl text-center">
+                <h3 className="text-2xl font-bold text-green-900 mb-3">
+                  No Upcoming Events
                 </h3>
-                <p className="text-gray-600 mb-4">
+                <p className="text-gray-600 mb-6">
                   We don’t have any scheduled events right now. Check back soon
                   or get involved to help organize one.
                 </p>
                 <div className="flex items-center justify-center gap-3">
                   <Link
                     href="/get-involved"
-                    className="inline-flex items-center px-4 py-2 bg-green-700 text-white rounded-md hover:bg-green-800"
+                    className="inline-flex items-center px-5 py-2.5 bg-green-700 text-white rounded-md hover:bg-green-800 transition-colors"
                   >
                     Get Involved
                   </Link>
                   <Link
                     href="/contact"
-                    className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
+                    className="inline-flex items-center px-5 py-2.5 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
                   >
                     Contact Us
                   </Link>
@@ -164,7 +171,7 @@ export default function EventsPage() {
               </div>
             </div>
           ) : (
-            // Events grid
+            /* Events Grid */
             <EventGrid
               events={events.map(
                 (e) =>

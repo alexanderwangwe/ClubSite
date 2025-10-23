@@ -21,60 +21,58 @@ export default function AboutPage() {
   const videoId = "bKrzE03T6pc"; // YouTube ID
 
   return (
-    <div className="min-h-screen bg-background font-sans text-foreground">
-      {/* Navbar */}
+    <div className="min-h-screen bg-background text-foreground font-sans">
       <Navbar />
 
       {/* Header */}
-      <header className="bg-gradient-to-r from-primary/10 to-accent/10 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header className="bg-gradient-to-r from-green-50 to-green-100/40 py-24 border-b border-border">
+        <div className="max-w-7xl mx-auto px-6 text-center">
           <Link
             href="/"
-            className="inline-flex items-center text-primary hover:text-primary/80 transition-colors mb-6"
+            className="inline-flex items-center text-green-700 hover:text-green-900 transition-colors mb-6"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Home
           </Link>
 
-          <h1 className="text-4xl md:text-5xl font-bold font-serif mb-4">
+          <h1 className="text-5xl sm:text-6xl font-extrabold text-green-900 mb-6">
             About SESC
           </h1>
 
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
-            The{" "}
+          <p className="text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto">
             <strong>Strathmore Environmental Sustainability Club (SESC)</strong>{" "}
-            drives environmental awareness and sustainable action through
-            education, collaboration, and innovation — empowering students and
-            communities to lead the green revolution.
+            drives environmental awareness and action through education,
+            innovation, and collaboration — empowering students to lead the
+            green revolution.
           </p>
         </div>
       </header>
 
       {/* Mission & Vision */}
-      <section className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
           <div>
-            <div className="mb-8">
-              <div className="flex items-center mb-3">
-                <Target className="h-8 w-8 text-primary mr-3" />
-                <h2 className="text-3xl font-bold font-serif">Our Mission</h2>
+            <div className="mb-12">
+              <div className="flex items-center mb-4">
+                <Target className="h-8 w-8 text-green-700 mr-3" />
+                <h2 className="text-3xl font-bold text-green-900">Our Mission</h2>
               </div>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-gray-700 leading-relaxed text-lg">
                 To inspire and empower the Strathmore community to take
                 meaningful action for a sustainable future through awareness,
-                research, and active participation.
+                research, and participation.
               </p>
             </div>
 
             <div>
-              <div className="flex items-center mb-3">
-                <Lightbulb className="h-8 w-8 text-accent mr-3" />
-                <h2 className="text-3xl font-bold font-serif">Our Vision</h2>
+              <div className="flex items-center mb-4">
+                <Lightbulb className="h-8 w-8 text-green-600 mr-3" />
+                <h2 className="text-3xl font-bold text-green-900">Our Vision</h2>
               </div>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-gray-700 leading-relaxed text-lg">
                 A future where every member of Strathmore actively contributes
-                to environmental stewardship — setting an example for
-                communities across Kenya and beyond.
+                to environmental stewardship — setting an example for Kenya and
+                beyond.
               </p>
             </div>
           </div>
@@ -85,71 +83,73 @@ export default function AboutPage() {
               alt="SESC members during a cleanup activity"
               width={600}
               height={400}
-              className="rounded-2xl shadow-lg border border-border"
+              className="rounded-3xl shadow-lg border border-border hover:scale-[1.02] transition-transform duration-300"
             />
           </div>
         </div>
       </section>
 
       {/* Values */}
-      <section className="py-20 bg-muted/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold font-serif mb-4">
+      <section className="py-24 bg-gradient-to-b from-green-50/50 to-white">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <h2 className="text-4xl font-extrabold text-green-900 mb-6">
             Our Core Values
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-12">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-16">
             The principles that guide SESC in its mission to protect and sustain
             our environment.
           </p>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-card border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition">
-              <Heart className="h-12 w-12 text-primary mx-auto mb-4" />
-              <h4 className="text-xl font-bold mb-2">Community First</h4>
-              <p className="text-muted-foreground">
-                We collaborate with students, residents, and organizations to
-                inspire action and collective responsibility.
-              </p>
-            </div>
-            <div className="bg-card border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition">
-              <Recycle className="h-12 w-12 text-accent mx-auto mb-4" />
-              <h4 className="text-xl font-bold mb-2">Sustainability</h4>
-              <p className="text-muted-foreground">
-                Every project is designed with long-term environmental and
-                social impact in mind.
-              </p>
-            </div>
-            <div className="bg-card border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition">
-              <Users className="h-12 w-12 text-primary mx-auto mb-4" />
-              <h4 className="text-xl font-bold mb-2">Education</h4>
-              <p className="text-muted-foreground">
-                We believe informed individuals are powerful change agents — we
-                learn, share, and act.
-              </p>
-            </div>
+          <div className="grid md:grid-cols-3 gap-10">
+            {[
+              {
+                icon: <Heart className="h-12 w-12 text-green-700 mx-auto mb-4" />,
+                title: "Community First",
+                desc: "We collaborate with students, residents, and organizations to inspire collective responsibility.",
+              },
+              {
+                icon: <Recycle className="h-12 w-12 text-green-600 mx-auto mb-4" />,
+                title: "Sustainability",
+                desc: "Every project is designed for long-term environmental and social impact.",
+              },
+              {
+                icon: <Users className="h-12 w-12 text-green-700 mx-auto mb-4" />,
+                title: "Education",
+                desc: "We believe informed individuals are powerful change agents — we learn, share, and act.",
+              },
+            ].map((v, i) => (
+              <div
+                key={i}
+                className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              >
+                {v.icon}
+                <h4 className="text-2xl font-semibold mb-3 text-green-900">{v.title}</h4>
+                <p className="text-gray-600">{v.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Spotlight: WasteWise Movement */}
-      <section className="py-20 bg-background">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+      {/* Spotlight */}
+      <section className="py-24 bg-white border-t border-border">
+        <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <div className="flex items-center justify-center mb-4">
-              <Award className="h-8 w-8 text-primary mr-3" />
-              <h2 className="text-3xl font-bold font-serif">
+            <div className="flex items-center justify-center mb-3">
+              <Award className="h-8 w-8 text-green-700 mr-3" />
+              <h2 className="text-4xl font-extrabold text-green-900">
                 Spotlight: WasteWise Movement
               </h2>
             </div>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
               A student-led initiative redefining waste management through
-              awareness, and action <br /> starting with our pilot project in
-              Siwaka community.
+              awareness and community action, beginning with our pilot project
+              in Siwaka.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-10 items-center">
-            <div className="rounded-2xl overflow-hidden border border-border shadow-md">
+            <div className="rounded-3xl overflow-hidden shadow-lg border border-border hover:scale-[1.01] transition-transform">
               <Image
                 src="/wastewise-movement.jpg"
                 alt="WasteWise Movement"
@@ -160,112 +160,71 @@ export default function AboutPage() {
             </div>
 
             <div>
-              <h3 className="text-2xl font-bold mb-4">
+              <h3 className="text-3xl font-bold text-green-900 mb-4">
                 Towards Cleaner Communities
               </h3>
-              <p className="text-muted-foreground mb-4 leading-relaxed">
+              <p className="text-gray-700 text-lg leading-relaxed">
                 The{" "}
-                <span className="font-semibold text-primary">
+                <span className="font-semibold text-green-700">
                   WasteWise Movement
                 </span>{" "}
-                creates awareness on waste management and sustainable practices.
-                Its pilot project in
-                <span className="font-semibold"> Siwaka</span> focuses on
-                community cleanups, digital campaigns, and local partnerships to
-                improve waste handling.
+                creates awareness on waste management and sustainability. Its
+                pilot project in <strong>Siwaka</strong> focuses on community
+                cleanups, digital campaigns, and local partnerships to improve
+                waste handling.
               </p>
             </div>
           </div>
         </div>
-
-        {/* Video Highlights Section - improved: lazy, accessible, privacy-aware */}
-        <section className="py-20 bg-muted/50">
-          <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center">
-            <h2 className="text-3xl font-bold font-serif mb-4">
-              Watch Our Highlights
-            </h2>
-            <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
-              Explore moments from our Mazingira day activities.
-            </p>
-
-            <figure className="mx-auto max-w-4xl">
-              {/* Poster + play button: only load YouTube iframe after explicit play to avoid third-party cookies and improve perf */}
-              {!videoLoaded ? (
-                <div className="relative rounded-2xl overflow-hidden shadow-lg border border-border bg-black">
-                  <img
-                    src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
-                    alt="Video thumbnail: WasteWise x SESC highlights"
-                    className="w-full h-auto object-cover block"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <button
-                    onClick={() => setVideoLoaded(true)}
-                    className="absolute inset-0 m-auto w-20 h-20 rounded-full bg-white/90 flex items-center justify-center shadow-lg hover:scale-105 transform transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-300"
-                    aria-label="Play SESC highlights video"
-                  >
-                    <svg
-                      className="w-8 h-8 text-green-700"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      aria-hidden
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </button>
-
-                  <figcaption className="p-4 text-left text-sm text-gray-300 bg-gradient-to-t from-black/60 to-transparent">
-                    <div className="font-semibold text-white">
-                      Wastewise and SESC Mazingira Day Highlights
-                    </div>
-                    <div className="text-xs">
-                    2025 Cleanup Day Activation Drive!
-                    </div>
-                    <div className="mt-2 text-xs text-gray-400">
-                      Videos load only after you press play to respect privacy
-                      and reduce third-party cookies.
-                    </div>
-                  </figcaption>
-                </div>
-              ) : (
-                <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg border border-border">
-                  {/* privacy-enhanced YouTube embed; no autoplay */}
-                  <iframe
-                    src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1`}
-                    title="SESC Highlights — YouTube"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                    className="w-full h-full"
-                    loading="lazy"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                  />
-                </div>
-              )}
-              <div className="mt-4 text-sm text-muted-foreground">
-              
-                <span className="mx-2">•</span>
-                <a
-                  href={`https://www.youtube.com/watch?v=${videoId}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline"
-                >
-                  📺 Watch on YouTube
-                </a>
-              </div>
-            </figure>
-          </div>
-        </section>
       </section>
 
-      {/* Impact Section */}
-      <section className="py-20 bg-muted/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold font-serif mb-4">Our Impact</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-12">
-            Together, we’re driving meaningful change in the Strathmore
-            community and beyond.
+      {/* YouTube Video Section */}
+      <section className="py-24 bg-gradient-to-b from-white to-green-50/50 border-t border-border">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <h2 className="text-4xl font-extrabold text-green-900 mb-6">
+            Watch Our Journey
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-10">
+            Discover how SESC members are making a difference through innovation,
+            leadership, and action.
+          </p>
+
+          <div className="relative aspect-video max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-lg border border-gray-200">
+            {!videoLoaded && (
+              <div
+                className="absolute inset-0 flex items-center justify-center bg-gray-100"
+                onClick={() => setVideoLoaded(true)}
+              >
+                <Image
+                  src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+                  alt="YouTube Video Thumbnail"
+                  fill
+                  className="object-cover cursor-pointer"
+                />
+              </div>
+            )}
+            {videoLoaded && (
+              <iframe
+                className="w-full h-full"
+                src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+                title="SESC Video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Impact */}
+      <section className="py-24 bg-gradient-to-t from-green-50/60 to-white">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <h2 className="text-4xl font-extrabold text-green-900 mb-6">
+            Our Impact
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-16">
+            Together, we’re driving measurable change within Strathmore and the
+            communities we serve.
           </p>
 
           <div className="grid md:grid-cols-4 gap-8">
@@ -277,12 +236,12 @@ export default function AboutPage() {
             ].map((stat, idx) => (
               <div
                 key={idx}
-                className="bg-card border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition"
+                className="bg-white border border-gray-200 rounded-2xl p-8 shadow-md hover:shadow-xl transition-transform duration-300 hover:-translate-y-1"
               >
-                <div className="text-3xl font-bold text-primary mb-2">
+                <div className="text-4xl font-bold text-green-700 mb-2">
                   {stat.value}
                 </div>
-                <div className="text-muted-foreground">{stat.label}</div>
+                <div className="text-gray-600 font-medium">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -290,19 +249,17 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-background">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold font-serif mb-4">
-            Join SESC Today
-          </h2>
-          <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+      <section className="py-24 bg-green-800 text-white">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-4xl font-extrabold mb-4">Join SESC Today</h2>
+          <p className="text-lg text-green-100 mb-8 leading-relaxed">
             Be part of a vibrant community of changemakers working toward a
             cleaner, more sustainable future.
           </p>
           <Link href="/get-involved">
             <Button
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground"
+              className="bg-white text-green-800 hover:bg-green-100 transition"
             >
               <Users className="mr-2 h-5 w-5" /> Join Our Community
             </Button>
@@ -310,7 +267,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Footer */}
       <Footer />
     </div>
   );
