@@ -41,7 +41,7 @@ export default function AboutPage() {
           </h1>
 
           <p className="text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto">
-            <strong>Strathmore Environmental Sustainability Club (SESC)</strong>{" "}
+            <strong>Strathmore Environmental Sustainability community (SESC)</strong>{" "}
             drives environmental awareness and action through education,
             innovation, and collaboration — empowering students to lead the
             green revolution.
