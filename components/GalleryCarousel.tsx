@@ -38,21 +38,21 @@ export default function GalleryCarousel() {
   function prev() {
     if (!containerRef.current) return;
     const width = containerRef.current.clientWidth;
-    scrollBy(-Math.max(240, Math.floor(width * 0.8)));
+    scrollBy(-Math.max(400, Math.floor(width * 0.9)));
   }
 
   function next() {
     if (!containerRef.current) return;
     const width = containerRef.current.clientWidth;
-    scrollBy(Math.max(240, Math.floor(width * 0.8)));
+    scrollBy(Math.max(400, Math.floor(width * 0.9)));
   }
 
   if (loading) {
     return (
-      <section className="px-6 py-12 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-green-800">
+      <section className="px-10 py-20 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-between items-center mb-10">
+            <h2 className="text-3xl font-bold text-green-800 tracking-tight">
               Latest Moments
             </h2>
             <Link
@@ -63,11 +63,11 @@ export default function GalleryCarousel() {
             </Link>
           </div>
 
-          <div className="grid grid-flow-col gap-4 auto-cols-[20rem] animate-pulse">
-            <div className="h-44 bg-gray-100 rounded-lg" />
-            <div className="h-44 bg-gray-100 rounded-lg" />
-            <div className="h-44 bg-gray-100 rounded-lg" />
-            <div className="h-44 bg-gray-100 rounded-lg" />
+          <div className="grid grid-flow-col gap-8 auto-cols-[25rem] animate-pulse">
+            <div className="h-64 bg-gray-100 rounded-2xl" />
+            <div className="h-64 bg-gray-100 rounded-2xl" />
+            <div className="h-64 bg-gray-100 rounded-2xl" />
+            <div className="h-64 bg-gray-100 rounded-2xl" />
           </div>
         </div>
       </section>
@@ -77,21 +77,19 @@ export default function GalleryCarousel() {
   if (!items.length) return null;
 
   return (
-    <section className="px-6 py-12 bg-white" aria-labelledby="gallery-heading">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-6">
+    <section
+      className="px-10 py-20 bg-white"
+      aria-labelledby="gallery-heading"
+    >
+      <div className="max-w-7xl mx-auto">
+        <div className="flex justify-between items-center mb-10">
           <h2
             id="gallery-heading"
-            className="text-2xl font-bold text-green-800"
+            className="text-3xl font-bold text-green-800 tracking-tight"
           >
             Latest Moments
           </h2>
-          <Link
-            href="/gallery"
-            className="text-green-700 hover:text-green-900 font-medium"
-          >
-            View All →
-          </Link>
+          
         </div>
 
         <div className="relative">
@@ -99,10 +97,10 @@ export default function GalleryCarousel() {
           <button
             onClick={prev}
             aria-label="Scroll gallery left"
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 backdrop-blur-sm p-2 rounded-full shadow hover:bg-white focus:outline-none"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-md hover:shadow-lg hover:bg-white transition-all"
           >
             <svg
-              className="h-5 w-5 text-green-700"
+              className="h-6 w-6 text-green-700"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -119,10 +117,10 @@ export default function GalleryCarousel() {
           <button
             onClick={next}
             aria-label="Scroll gallery right"
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 backdrop-blur-sm p-2 rounded-full shadow hover:bg-white focus:outline-none"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-md hover:shadow-lg hover:bg-white transition-all"
           >
             <svg
-              className="h-5 w-5 text-green-700"
+              className="h-6 w-6 text-green-700"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -138,7 +136,7 @@ export default function GalleryCarousel() {
 
           <div
             ref={containerRef}
-            className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 scroll-smooth px-2"
+            className="flex gap-8 overflow-x-auto snap-x snap-mandatory pb-8 scroll-smooth px-4 hide-scrollbar"
             role="list"
             tabIndex={0}
             aria-label="Gallery carousel"
@@ -148,11 +146,9 @@ export default function GalleryCarousel() {
             }}
           >
             {items.map((item) => (
-              <Link
+              <div
                 key={item.id}
-                href={`/gallery/${item.id}`}
-                className="snap-center shrink-0 w-80 h-56 rounded-lg overflow-hidden shadow-lg transform transition hover:scale-105 focus:scale-105 focus:outline-none"
-                aria-label={item.title || "Gallery image"}
+                className="snap-center shrink-0 w-[30rem] h-[20rem] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-[1.03] focus:outline-none"
               >
                 <div className="relative w-full h-full bg-gray-100">
                   <img
@@ -162,16 +158,26 @@ export default function GalleryCarousel() {
                     loading="lazy"
                     decoding="async"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-90 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
                   {item.title && (
-                    <div className="absolute left-3 right-3 bottom-3 text-white text-sm font-semibold drop-shadow">
+                    <div className="absolute left-5 right-5 bottom-5 text-white text-lg font-semibold drop-shadow">
                       {item.title}
                     </div>
                   )}
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
+        </div>
+
+        {/* View All button */}
+        <div className="text-center mt-12">
+          <Link
+            href="/gallery"
+            className="inline-block bg-green-700 text-white font-medium px-6 py-3 rounded-lg shadow hover:bg-green-800 transition"
+          >
+            View More Images
+          </Link>
         </div>
       </div>
     </section>

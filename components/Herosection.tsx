@@ -22,7 +22,7 @@ export default function Herosection() {
         </h1>
 
         <p className="mt-4 text-gray-700 max-w-xl text-base sm:text-lg">
-          We are a student-led organization at Strathmore University dedicated to
+          We are a student-led community at Strathmore University dedicated to
           promoting environmental awareness and sustainable practices on campus
           and beyond.
         </p>

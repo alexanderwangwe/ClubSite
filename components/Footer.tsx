@@ -211,7 +211,7 @@ export default function Footer() {
             All rights reserved.
           </p>
 
-          <div className="flex items-center gap-4">
+          {/* <div className="flex items-center gap-4">
             <Link href="/privacy" className="hover:underline">
               Privacy
             </Link>
@@ -230,7 +230,7 @@ export default function Footer() {
                 Strathmore
               </a>
             </span>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>
