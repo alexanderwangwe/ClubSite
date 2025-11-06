@@ -43,7 +43,7 @@ export default function AdminLayout({
             className="h-12 mb-2"
             style={{ objectFit: "contain" }}
           />
-          <h2 className="text-xl font-bold">SESC Admin Portal</h2>
+          <h2 className="text-xl font-bold">Admin Portal</h2>
           <p className="text-xs text-green-200 mt-1">Agents of Change</p>
         </div>
 
