@@ -38,7 +38,7 @@ export default function AdminLayout({
       <aside className="w-64 bg-green-800 text-white flex flex-col">
         <div className="p-6 border-b border-green-700 flex flex-col items-center">
           <img
-            src="/SESC_Logo.jpg"
+            src="/Logo.png"
             alt="SESC Logo"
             className="h-12 mb-2"
             style={{ objectFit: "contain" }}
