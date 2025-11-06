@@ -11,38 +11,39 @@ export default function Herosection() {
       {/* Left: copy */}
       <div className="z-10">
         <p className="inline-flex items-center bg-green-600 text-white px-3 py-1 rounded-full text-sm font-medium mb-4">
-          Sustainability in Action
+          WasteWise Movement
         </p>
 
         <h1
           id="hero-heading"
           className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-green-800 leading-tight"
         >
-          Strathmore Environment & Sustainability Community
+          WasteWise Awareness Hub
         </h1>
 
         <p className="mt-4 text-gray-700 max-w-xl text-base sm:text-lg">
-          We are a student-led community at Strathmore University dedicated to
-          promoting environmental awareness and sustainable practices on campus
-          and beyond.
+          A student-focused platform created under the WasteWise Project to
+          promote waste reduction, recycling, and responsible waste management
+          habits, developed in partnership with the Strathmore Environment &
+          Sustainability Community (SESC).
         </p>
 
         <div className="mt-6 flex flex-col sm:flex-row gap-3 sm:gap-4">
           <Link
             href="/get-involved"
             className="inline-flex items-center justify-center px-5 py-3 bg-green-700 text-white rounded-md font-semibold shadow-md hover:bg-green-800 transition focus:outline-none focus-visible:ring-4 focus-visible:ring-green-200"
-            aria-label="Join the club - Get involved"
+            aria-label="Join the WasteWise Movement - Get involved"
           >
-            Join the Club
+            Join the Movement
             <span className="sr-only"> — opens Get Involved page</span>
           </Link>
 
           <Link
             href="/about"
             className="inline-flex items-center justify-center px-5 py-3 border border-green-700 text-green-700 rounded-md font-semibold bg-white hover:bg-green-50 transition focus:outline-none focus-visible:ring-4 focus-visible:ring-green-100"
-            aria-label="Learn more about SESC"
+            aria-label="Learn more about the WasteWise Project"
           >
-            Learn More
+            About WasteWise
           </Link>
         </div>
       </div>
@@ -59,7 +60,7 @@ export default function Herosection() {
         <div className="relative w-full max-w-md sm:max-w-lg md:max-w-full">
           <Image
             src="/heroimage.png"
-            alt="Students volunteering outdoors planting trees"
+            alt="Students participating in WasteWise activities on campus"
             width={900}
             height={640}
             className="relative rounded-[28%] shadow-lg object-cover"

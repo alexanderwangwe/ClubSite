@@ -14,23 +14,22 @@ export default function AboutPreview() {
           id="about-heading"
           className="text-4xl sm:text-5xl font-extrabold text-green-800 tracking-tight"
         >
-          About Us
+          About WasteWise
         </h2>
 
         <p className="mt-4 text-lg text-green-700 font-medium">
-          Empowering sustainable action through community, education, and innovation.
+          Driving a culture of responsible waste management through awareness, education, and community action.
         </p>
 
         <p className="mt-8 text-gray-700 leading-relaxed text-lg sm:text-xl max-w-3xl mx-auto">
-          Strathmore Environment Sustainability Club’s (SESC) mission is to
-          create a sustainable environment and act as change agents for a better
-          future through eco-friendly initiatives and conservation measures.
+          WasteWise is a movement dedicated to addressing the growing challenge of waste management by promoting
+          sustainable habits, responsible disposal, and environmental awareness within Strathmore University and beyond.
           <br />
           <br />
-          We focus on policies, events, education, and outreach related to
-          sustainability, energy conservation, pollution reduction, global
-          warming, green building, and ecological living inspiring action for
-          the planet and our community.
+          This platform was developed under the WasteWise Project to create awareness, share knowledge, highlight
+          impactful initiatives, and inspire students and communities to take action towards a cleaner, zero-waste
+          future. The Strathmore Environment Sustainability Club (SESC) partners with WasteWise to ensure continuity,
+          student engagement, and long-term impact through campus-driven initiatives and environmental leadership.
         </p>
 
         <div className="mt-10">
@@ -38,7 +37,7 @@ export default function AboutPreview() {
             href="/about"
             className="inline-block bg-green-700 text-white px-6 py-3 rounded-lg font-medium text-lg shadow hover:bg-green-800 transition"
           >
-            Learn More About SESC
+            Learn More
           </Link>
         </div>
       </div>

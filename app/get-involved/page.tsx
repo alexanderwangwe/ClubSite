@@ -42,7 +42,7 @@ export default function GetInvolvedPage() {
     {
       question: "How do I join?",
       answer:
-        "Fill out the sign-up form (opens in a new tab) or visit one of our meetings. Membership is open to all Strathmore students.",
+        "Fill out the sign-up form (opens in a new tab) or visit one of our meetings. Membership is open to all.",
     },
     {
       question: "What kind of time commitment is expected?",
@@ -119,7 +119,7 @@ export default function GetInvolvedPage() {
                   <div className="flex items-center gap-3">
                     <Users className="h-8 w-8 text-green-600" />
                     <CardTitle id="membership-heading">
-                      Quick Sign-up (form)
+                      Quick Sign-up
                     </CardTitle>
                   </div>
                 </CardHeader>
@@ -170,7 +170,7 @@ export default function GetInvolvedPage() {
                         Open form
                       </Button>
                       <Button variant="outline" asChild>
-                        <a href="mailto:environment@strathmore.edu">Email Us</a>
+                        <a href="mailto:ianabuki@strathmore.edu">Email Us</a>
                       </Button>
                     </div>
 
@@ -242,9 +242,9 @@ export default function GetInvolvedPage() {
                 </p>
                 <div className="flex justify-center gap-3">
                   <Button variant="outline" asChild>
-                    <a href="mailto:environment@strathmore.edu">Send Email</a>
+                    <a href="mailto:ianabuki@strathmore.edu">Send Email</a>
                   </Button>
-                  <Button asChild>
+                  {/* <Button asChild>
                     <a
                       href={googleFormUrl}
                       target="_blank"
@@ -252,7 +252,7 @@ export default function GetInvolvedPage() {
                     >
                       Open sign-up form
                     </a>
-                  </Button>
+                  </Button> */}
                 </div>
               </Card>
 
