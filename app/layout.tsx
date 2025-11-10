@@ -4,6 +4,10 @@ import { Inter } from "next/font/google";
 import "../styles/globals.css";
 import { Toaster } from "sonner";
 import SupabaseProvider from "@/components/SupabaseProvider"; 
+
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -33,14 +37,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${inter.className} min-h-screen bg-background antialiased`}
-      >
+      <body className={`${inter.className} min-h-screen bg-background antialiased`}>
         {/* Supabase wraps children */}
         <SupabaseProvider>
           {children}
           <Toaster position="top-center" />
         </SupabaseProvider>
+
+        {/*Vercel Analytics and speed */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
