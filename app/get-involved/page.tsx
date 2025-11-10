@@ -15,25 +15,25 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export default function GetInvolvedPage() {
-  const googleFormUrl = "https://forms.gle/signupSESC"; // Replace with actual form URL
+  const googleFormUrl = "https://forms.gle/signupWasteWise"; // Update with actual WasteWise form URL
 
   const participationWays = [
     {
       title: "Become a Member",
       description:
-        "Join as an active member and help drive environmental change on campus. Members get access to training, projects, and leadership opportunities.",
+        "Join WasteWise as an active member and help drive environmental initiatives across the community. Gain access to training, projects, and leadership opportunities.",
       icon: <Users className="h-10 w-10 text-green-600" />,
     },
     {
       title: "Volunteer",
       description:
-        "Support specific events and clean-up activities whenever you are available — short tasks, shifts, or ongoing roles.",
+        "Support cleanups, workshops, and events whenever you are available — short-term tasks or ongoing roles.",
       icon: <Heart className="h-10 w-10 text-green-600" />,
     },
     {
       title: "Donate or Sponsor",
       description:
-        "Contribute resources, equipment, or financial support to our initiatives and help scale impact.",
+        "Contribute resources, equipment, or financial support to WasteWise initiatives and help scale our environmental impact.",
       icon: <Recycle className="h-10 w-10 text-green-600" />,
     },
   ];
@@ -47,11 +47,10 @@ export default function GetInvolvedPage() {
     {
       question: "What kind of time commitment is expected?",
       answer:
-        "You choose your involvement. Volunteer occasionally or take a leadership role — everyone’s contribution matters.",
+        "You choose your involvement. Volunteer occasionally or take on a leadership role — every contribution counts.",
     },
   ];
 
-  // Basic form preview before redirect to Google Form
   const [form, setForm] = useState({ name: "", email: "", notes: "" });
   const [status, setStatus] = useState<null | "ok" | "invalid">(null);
 
@@ -76,7 +75,6 @@ export default function GetInvolvedPage() {
         {/* Hero Section */}
         <section className="py-20">
           <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
-            {/* Hero Text */}
             <div>
               <Link
                 href="/"
@@ -87,11 +85,10 @@ export default function GetInvolvedPage() {
               </Link>
 
               <h1 className="text-4xl md:text-5xl font-bold text-green-900 mb-4">
-                Get Involved with SESC
+                Get Involved with WasteWise <span className="text-green-600 font-semibold text-lg">(in collaboration with SESC)</span>
               </h1>
               <p className="text-lg text-gray-700 mb-6">
-                Join students leading sustainability on campus — learn new
-                skills, meet peers, and make a measurable impact.
+                Join WasteWise to lead sustainability initiatives, learn new skills, connect with like-minded peers, and make a real environmental impact.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">
@@ -118,16 +115,13 @@ export default function GetInvolvedPage() {
                 <CardHeader>
                   <div className="flex items-center gap-3">
                     <Users className="h-8 w-8 text-green-600" />
-                    <CardTitle id="membership-heading">
-                      Quick Sign-up
-                    </CardTitle>
+                    <CardTitle id="membership-heading">Quick Sign-up</CardTitle>
                   </div>
                 </CardHeader>
 
                 <CardContent>
                   <p className="text-sm text-gray-600 mb-3">
-                    We'll collect your details via a short Google Form. Click
-                    "Open form" to proceed.
+                    We'll collect your details via a short WasteWise Google Form. Click "Open form" to proceed.
                   </p>
 
                   <form onSubmit={handleSubmit} className="space-y-3">
@@ -163,14 +157,11 @@ export default function GetInvolvedPage() {
                     />
 
                     <div className="flex items-center justify-between gap-3">
-                      <Button
-                        type="submit"
-                        className="bg-green-700 hover:bg-green-800"
-                      >
+                      <Button type="submit" className="bg-green-700 hover:bg-green-800">
                         Open form
                       </Button>
                       <Button variant="outline" asChild>
-                        <a href="mailto:ianabuki@strathmore.edu">Email Us</a>
+                        <a href="mailto:contact@wastewise.org">Email Us</a>
                       </Button>
                     </div>
 
@@ -237,31 +228,20 @@ export default function GetInvolvedPage() {
               {/* Email Card */}
               <Card className="p-6 border-green-100 shadow-sm">
                 <Mail className="h-8 w-8 mx-auto text-green-600 mb-2" />
-                <p className="text-gray-700 mb-2">
-                  environment@strathmore.edu
-                </p>
+                <p className="text-gray-700 mb-2">environmentalclub@strathmore.edu</p>
                 <div className="flex justify-center gap-3">
                   <Button variant="outline" asChild>
-                    <a href="mailto:ianabuki@strathmore.edu">Send Email</a>
+                    <a href="mailto:environmentalclub@strathmore.edu">Send Email</a>
                   </Button>
-                  {/* <Button asChild>
-                    <a
-                      href={googleFormUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Open sign-up form
-                    </a>
-                  </Button> */}
                 </div>
               </Card>
 
-              {/* Clubs Office */}
+              {/* Clubs Office / Collaboration */}
               <Card className="p-6 border-green-100 shadow-sm">
                 <div className="mx-auto h-10 w-10 mb-2 rounded-full bg-green-100 flex items-center justify-center text-green-700 font-semibold">
                   CO
                 </div>
-                <p className="text-gray-700 mb-2">Clubs Office</p>
+                <p className="text-gray-700 mb-2">Clubs Office (SESC)</p>
                 <div className="flex justify-center">
                   <Link
                     href="/events"
@@ -302,12 +282,9 @@ export default function GetInvolvedPage() {
             <Card className="bg-green-700 text-white p-6">
               <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                 <div>
-                  <h3 className="text-2xl font-bold">
-                    Ready to take action?
-                  </h3>
+                  <h3 className="text-2xl font-bold">Ready to take action?</h3>
                   <p className="opacity-90">
-                    Join a cleanup, host a workshop, or start a project with
-                    peers.
+                    Join a cleanup, host a workshop, or start a project with peers.
                   </p>
                 </div>
 
@@ -320,12 +297,6 @@ export default function GetInvolvedPage() {
                   >
                     Sign up
                   </a>
-                  {/* <Link
-                    href="/donate"
-                    className="inline-flex items-center px-4 py-2 border border-white/30 rounded-md"
-                  >
-                    Support us
-                  </Link> */}
                 </div>
               </div>
             </Card>
