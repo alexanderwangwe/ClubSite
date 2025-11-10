@@ -87,12 +87,12 @@ export default function EventsPage() {
           </Link>
 
           <h2 className="text-4xl sm:text-5xl font-extrabold text-green-900 mb-4">
-            Upcoming SESC Events
+            WasteWise Events <span className="text-green-600 font-semibold text-lg">(in collaboration with SESC)</span>
           </h2>
 
           <p className="text-lg sm:text-xl text-gray-600 leading-relaxed max-w-3xl">
-            Be part of our journey toward a sustainable future. From cleanups to
-            workshops, debates, and fairs — there’s always a way to get involved.
+            Join WasteWise and SESC as we host workshops, cleanups, recycling drives, and
+            community action initiatives — working together for a greener, sustainable future.
           </p>
         </div>
       </section>
@@ -123,7 +123,7 @@ export default function EventsPage() {
               </div>
             ) : events.length === 0 ? (
               <p className="text-sm text-gray-500">
-                No upcoming events currently scheduled.
+                No upcoming events currently scheduled. Check back soon or get involved!
               </p>
             ) : (
               <p className="text-sm text-gray-600">
@@ -151,8 +151,7 @@ export default function EventsPage() {
                   No Upcoming Events
                 </h3>
                 <p className="text-gray-600 mb-6">
-                  We don’t have any scheduled events right now. Check back soon
-                  or get involved to help organize one.
+                  We don’t have any scheduled events right now. Check back soon or join WasteWise to organize one.
                 </p>
                 <div className="flex items-center justify-center gap-3">
                   <Link
@@ -178,6 +177,7 @@ export default function EventsPage() {
                   ({
                     ...e,
                     formattedDate: formatDate(e.date),
+                    collaboration: "WasteWise & SESC",
                   } as Event)
               )}
             />
