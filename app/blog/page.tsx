@@ -23,14 +23,15 @@ export default function BlogsPage() {
   const pageSize = 6;
   const mountedRef = useRef(true);
 
+  // Updated categories to reflect WasteWise focus
   const categories = [
     "All",
-    "Campus Life",
     "Recycling",
-    "Conservation",
-    "Awareness",
+    "Waste Reduction",
     "Community Action",
-    "Science",
+    "Sustainable Living",
+    "Eco Education",
+    "Events",
   ];
 
   useEffect(() => {
@@ -72,7 +73,7 @@ export default function BlogsPage() {
 
       if (fetchError) {
         console.error("Error fetching posts:", fetchError);
-        setError("Failed to load posts. Please try again.");
+        setError("Failed to load articles. Please try again.");
         return;
       }
 
@@ -121,12 +122,12 @@ export default function BlogsPage() {
           </Link>
 
           <h2 className="text-4xl sm:text-5xl font-extrabold text-green-900 mb-4">
-            SESC Blog
+            WasteWise Blog
           </h2>
 
           <p className="text-lg sm:text-xl text-gray-600 leading-relaxed max-w-3xl">
-            Stories, reflections, and insights from Strathmore students and
-            faculty — working together for a sustainable and thriving future.
+            Stories, reflections, and practical tips on sustainability, recycling, and
+            community action — helping us all make greener choices.
           </p>
         </div>
       </section>
