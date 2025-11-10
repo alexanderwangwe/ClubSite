@@ -7,29 +7,22 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
-// ------------------------
-// Exported type for form
-// ------------------------
 export interface EventFormData {
   title: string;
   description: string;
-  date: string; // YYYY-MM-DD
-  time?: string; // HH:MM (new field)
-  category?: string; // (new field)
+  date: string;
+  time?: string;
+  category?: string;
   location?: string;
   register_link?: string;
-  image?: string; // public URL
+  image?: string | null;
 }
 
-// ------------------------
-// Props
-// ------------------------
 interface EventFormProps {
   initialData?: EventFormData;
   isEditing?: boolean;
-  eventId?: string; // Changed to string for consistency with URL params
+  eventId?: string;
   loading?: boolean;
-  onSubmit?: (form: EventFormData) => Promise<void>;
 }
 
 export default function EventForm({
@@ -37,41 +30,29 @@ export default function EventForm({
   isEditing,
   eventId,
   loading: externalLoading,
-  onSubmit,
 }: EventFormProps) {
   const router = useRouter();
   const supabase = useSupabaseClient();
 
   const [title, setTitle] = useState(initialData?.title || "");
   const [description, setDescription] = useState(initialData?.description || "");
-  
-  // Adjusted: date state only holds the YYYY-MM-DD part
   const [date, setDate] = useState(initialData?.date || "");
-  
-  // New: separate time state
   const [time, setTime] = useState(initialData?.time || "");
-
   const [location, setLocation] = useState(initialData?.location || "");
   const [registerLink, setRegisterLink] = useState(initialData?.register_link || "");
-  
-  // New: category state
   const [category, setCategory] = useState(initialData?.category || "");
-
-
   const [file, setFile] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(initialData?.image || null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(
+    initialData?.image && initialData.image.startsWith("http") ? initialData.image : null
+  );
+  const [removed, setRemoved] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const BUCKET = "events-images";
-  const MAX_FILE_SIZE = 4 * 1024 * 1024; // 4MB
+  const MAX_FILE_SIZE = 4 * 1024 * 1024;
   const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
-  // ... (handleFileChange, removeSelectedFile, useEffect for file preview remain the same) ...
-  
-  // ------------------------
-  // Handle file selection (No change)
-  // ------------------------
   useEffect(() => {
     if (!file) return;
     const url = URL.createObjectURL(file);
@@ -82,10 +63,10 @@ export default function EventForm({
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     setError("");
     const f = e.target.files?.[0] ?? null;
-    if (!f) {
-      setFile(null);
-      return;
-    }
+    if (!f) return setFile(null);
+
+    console.log("📸 Selected file:", f.name, f.type, f.size);
+
     if (!ALLOWED_TYPES.includes(f.type)) {
       setError("Only JPG, PNG, and WEBP images are allowed.");
       return;
@@ -95,88 +76,116 @@ export default function EventForm({
       return;
     }
     setFile(f);
+    setRemoved(false);
   }
 
   function removeSelectedFile() {
     setFile(null);
     setPreviewUrl(null);
+    setRemoved(true);
   }
 
-  // ------------------------
-  // Upload image to Supabase (No change needed here, as eventId is passed as a string now)
-  // ------------------------
-  async function uploadFileForEvent(evId: string) { // Updated type to string
-    if (!file) return null;
+  async function uploadFileForEvent(evId: string) {
+    if (!file) {
+      console.log("No file selected — skipping upload");
+      return null;
+    }
 
     const ext = file.name.split(".").pop();
     const filePath = `events/${evId}/${Date.now()}_${crypto.randomUUID()}.${ext}`;
+    console.log("Uploading file to:", filePath);
 
     const { error: uploadError } = await supabase.storage
       .from(BUCKET)
       .upload(filePath, file, { cacheControl: "3600", upsert: false });
 
-    if (uploadError) throw uploadError;
+    if (uploadError) {
+      console.error("Upload error:", uploadError.message);
+      throw uploadError;
+    }
 
     const { data } = supabase.storage.from(BUCKET).getPublicUrl(filePath);
+    console.log("Public URL received:", data?.publicUrl);
     return data?.publicUrl || null;
   }
-  
-  // ------------------------
-  // Handle submit
-  // ------------------------
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
 
-    // Validation adjusted for separate date and time
     if (!title.trim() || !description.trim() || !date.trim() || !time.trim()) {
-      setError("Please fill in all required fields (Title, Description, Date, and Time).");
+      setError("Please fill in all required fields.");
       return;
     }
 
     setLoading(true);
+    console.log("Submitting event...");
 
     try {
-      // Construct the form data object
-      const formData: EventFormData = {
+      const baseData = {
         title,
         description,
-        date, // Now just the date string
-        time, // New time string
-        category: category || undefined, // New category
+        date,
+        time,
+        category: category || undefined,
         location: location || undefined,
         register_link: registerLink || undefined,
-        image: previewUrl || undefined,
       };
 
-      if (onSubmit) {
-        // Use custom handler if passed
-        await onSubmit(formData);
-      } else if (isEditing && eventId) {
-        // Update existing event
-        const updateData = { ...formData };
+      if (isEditing && eventId) {
+        console.log("🛠 Editing event:", eventId);
+        let finalImageUrl = initialData?.image || null;
+
+        if (file) {
+          finalImageUrl = await uploadFileForEvent(eventId);
+        } else if (removed) {
+          finalImageUrl = null;
+        }
+
+        const updateData = { ...baseData, image: finalImageUrl };
+        console.log("Updating with data:", updateData);
+
         const { error: updateError } = await supabase
           .from("events")
           .update(updateData)
-          .eq("id", eventId.toString()); // FIX: Use .toString() on ID
-          
+          .eq("id", eventId);
+
         if (updateError) throw updateError;
         alert("Event updated successfully!");
-        router.push("/admin/events");
       } else {
-        // Create new event
+        console.log("✨ Creating new event");
         const { data: inserted, error: insertError } = await supabase
           .from("events")
-          .insert([formData])
-          .select("id") // Select only ID for efficiency
+          .insert([{ ...baseData, image: null }])
+          .select("id")
           .single();
-          
+
         if (insertError || !inserted?.id) throw insertError || new Error("Failed to create event.");
+
+        const newId = inserted.id.toString();
+        console.log("New event ID:", newId);
+
+        let publicUrl = null;
+        if (file) publicUrl = await uploadFileForEvent(newId);
+
+        if (publicUrl) {
+          console.log("Updating DB with image:", publicUrl);
+          const { error: imgUpdateError } = await supabase
+            .from("events")
+            .update({ image: publicUrl })
+            .eq("id", newId);
+
+          if (imgUpdateError) throw imgUpdateError;
+        } else {
+          console.log("No image uploaded for event.");
+        }
+
         alert("Event created successfully!");
-        router.push("/admin/events");
       }
+
+      router.push("/admin/events");
     } catch (err: any) {
-      console.error("EventForm Error:", err);
+      console.error("EventForm error:", err);
       setError(err?.message || "Unexpected error saving event.");
     } finally {
       setLoading(false);
@@ -185,74 +194,26 @@ export default function EventForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl mx-auto">
-      <Input
-        type="text"
-        placeholder="Event Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        required
-      />
+      <Input type="text" placeholder="Event Title" value={title} onChange={(e) => setTitle(e.target.value)} required />
+      <Textarea placeholder="Event Description" value={description} onChange={(e) => setDescription(e.target.value)} required />
 
-      <Textarea
-        placeholder="Event Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        required
-      />
-      
-      {/* New Row for Date and Time */}
       <div className="flex gap-4">
-        <Input
-          type="date" // Changed to type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          required
-        />
-        <Input
-          type="time" // New input for time
-          value={time}
-          onChange={(e) => setTime(e.target.value)}
-          required
-        />
+        <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+        <Input type="time" value={time} onChange={(e) => setTime(e.target.value)} required />
       </div>
 
-      <Input
-        type="text"
-        placeholder="Location"
-        value={location}
-        onChange={(e) => setLocation(e.target.value)}
-      />
-      
-      {/* New Input for Category */}
-      <Input
-        type="text"
-        placeholder="Category (e.g., Workshop, Social, Seminar)"
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-      />
+      <Input type="text" placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)} />
+      <Input type="text" placeholder="Category (e.g., Workshop, Social, Seminar)" value={category} onChange={(e) => setCategory(e.target.value)} />
+      <Input type="url" placeholder="Registration Link (optional)" value={registerLink} onChange={(e) => setRegisterLink(e.target.value)} />
 
-      <Input
-        type="url"
-        placeholder="Registration Link (optional)"
-        value={registerLink}
-        onChange={(e) => setRegisterLink(e.target.value)}
-      />
-
-      {/* Image Upload remains the same */}
       <div className="space-y-2">
         <label className="block text-sm font-medium">Event Image</label>
         <input type="file" accept="image/*" onChange={handleFileChange} />
         {previewUrl && (
           <div className="mt-2 flex items-start gap-3">
-            <img
-              src={previewUrl}
-              alt="Event preview"
-              className="w-36 h-24 object-cover rounded-md border"
-            />
+            <img src={previewUrl} alt="Event preview" className="w-36 h-24 object-cover rounded-md border" />
             <div>
-              <div className="text-sm text-gray-700 break-words max-w-xs">
-                {file ? file.name : previewUrl}
-              </div>
+              <div className="text-sm text-gray-700 break-words max-w-xs">{file ? file.name : "Saved Image"}</div>
               <div className="mt-2 flex gap-2">
                 <Button variant="outline" type="button" onClick={removeSelectedFile}>
                   Remove
@@ -261,19 +222,13 @@ export default function EventForm({
             </div>
           </div>
         )}
-        <div className="text-xs text-muted-foreground">
-          Max 4MB. JPG / PNG / WEBP recommended.
-        </div>
+        <div className="text-xs text-muted-foreground">Max 4MB. JPG / PNG / WEBP recommended.</div>
       </div>
 
       {error && <p className="text-red-500">{error}</p>}
 
       <Button type="submit" disabled={loading || externalLoading}>
-        {loading || externalLoading
-          ? "Saving..."
-          : isEditing
-          ? "Update Event"
-          : "Create Event"}
+        {loading || externalLoading ? "Saving..." : isEditing ? "Update Event" : "Create Event"}
       </Button>
     </form>
   );
