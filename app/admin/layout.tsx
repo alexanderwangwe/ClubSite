@@ -11,6 +11,8 @@ import {
   LogOut,
 } from "lucide-react";
 
+import { Analytics } from "@vercel/analytics/react";
+
 export default function AdminLayout({
   children,
 }: {
@@ -80,6 +82,9 @@ export default function AdminLayout({
 
       {/* Main Content */}
       <main className="flex-1 bg-gray-50 p-8">{children}</main>
+
+      {/* Vercel Analytics */}
+      <Analytics />
     </div>
   );
 }
