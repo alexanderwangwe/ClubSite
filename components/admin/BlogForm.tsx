@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -61,8 +60,6 @@ export default function BlogForm({
     }
     setFile(f);
   }
-
-  // ✅ Handles upload + returns public URL
   async function uploadImage(postId: number) {
     if (!file) return null;
     const ext = file.name.split(".").pop();
@@ -77,7 +74,6 @@ export default function BlogForm({
       });
 
     if (uploadError) {
-      // Optionally handle upload error here (e.g., show user notification)
       throw uploadError;
     }
 
