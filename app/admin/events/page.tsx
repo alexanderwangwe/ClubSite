@@ -8,21 +8,44 @@ import { Button } from "@/components/ui/button";
 
 export default function AdminEventsPage() {
   const [events, setEvents] = useState<Event[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchEvents();
   }, []);
 
   async function fetchEvents() {
-    const { data } = await supabase
+    setLoading(true);
+    const { data, error } = await supabase
       .from("events")
       .select("*")
       .order("date", { ascending: true });
-    setEvents(data || []);
+
+    if (error) {
+      console.error("Fetch events error:", error);
+    } else {
+      setEvents(data || []);
+    }
+    setLoading(false);
   }
 
-  async function deleteEvent(id: number) {
-    await supabase.from("events").delete().eq("id", id);
+  async function deleteEvent(id: number | string | bigint) {
+    const confirmed = confirm("Are you sure you want to delete this event?");
+    if (!confirmed) return;
+
+    const numericId = BigInt(id);
+
+    const { error } = await supabase
+      .from("events")
+      .delete()
+      .eq("id", numericId);
+
+    if (error) {
+      alert("Failed to delete event: " + error.message);
+      return;
+    }
+
+    alert("Event deleted successfully!");
     fetchEvents();
   }
 
@@ -44,7 +67,7 @@ export default function AdminEventsPage() {
         </thead>
         <tbody>
           {events.map((event) => (
-            <tr key={event.id} className="border-b">
+            <tr key={event.id.toString()} className="border-b">
               <td className="p-2">{event.title}</td>
               <td className="p-2">{event.date}</td>
               <td className="p-2">{event.category}</td>
@@ -63,6 +86,8 @@ export default function AdminEventsPage() {
           ))}
         </tbody>
       </table>
+
+      {loading && <p className="mt-4 text-gray-500">Loading events...</p>}
     </div>
   );
 }
