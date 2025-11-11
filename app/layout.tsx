@@ -11,11 +11,11 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Strathmore Environmental Club - Towards a Cleaner Community",
+  title: "WasteWise - Towards a Cleaner Community",
   description:
     "Join the Strathmore University Environmental Club in building a sustainable future for our campus community through environmental awareness, waste management, and collective action.",
   keywords:
-    "Strathmore University, Environmental Club, Siwaka, Sustainability, Waste Management, Clean Campus, Environmental Awareness, Tree Planting, Recycling",
+    "Strathmore University, WasteWise, Environmental Club, Siwaka, Sustainability, Waste Management, Clean Campus, Environmental Awareness, Recycling",
   authors: [{ name: "Strathmore Environmental Club" }],
   metadataBase: new URL("http://localhost:3000"),
   icons: {
