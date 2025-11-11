@@ -79,9 +79,9 @@ export default function AboutPage() {
 
           <div className="relative">
             <Image
-              src="/about-section.png"
+              src="/wastewiselogo.png"
               alt="Students participating in a WasteWise initiative"
-              width={600}
+              width={500}
               height={400}
               className="rounded-3xl shadow-lg border border-border hover:scale-[1.02] transition-transform duration-300"
             />
@@ -215,8 +215,8 @@ export default function AboutPage() {
               <Image
                 src="/Logo.png"
                 alt="SESC club collaboration"
-                width={400}
-                height={200}
+                width={300}
+                height={100}
                 className="w-full h-full object-cover"
               />
             </div>
