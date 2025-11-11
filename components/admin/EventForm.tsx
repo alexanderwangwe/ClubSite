@@ -222,7 +222,7 @@ export default function EventForm({
             </div>
           </div>
         )}
-        <div className="text-xs text-muted-foreground">Max 4MB. JPG / PNG / WEBP recommended.</div>
+        <div className="text-xs text-muted-foreground">Max 4MB. JPG / PNG recommended.</div>
       </div>
 
       {error && <p className="text-red-500">{error}</p>}

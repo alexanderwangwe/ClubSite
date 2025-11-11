@@ -127,7 +127,7 @@ export default function EventsPage() {
               </p>
             ) : (
               <p className="text-sm text-gray-600">
-                {events.length} upcoming event{events.length !== 1 ? "s" : ""}
+                {events.length} event{events.length !== 1 ? "s" : ""}
               </p>
             )}
           </div>
