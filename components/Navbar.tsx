@@ -19,19 +19,14 @@ export default function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Close mobile menu when route changes
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [pathname]);
+  useEffect(() => setIsMobileMenuOpen(false), [pathname]);
 
-  // Close on Escape and lock body scroll when menu open
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") setIsMobileMenuOpen(false);
     }
     if (isMobileMenuOpen) {
       document.addEventListener("keydown", onKey);
-      // lock body scroll on small screens when menu open
       document.body.style.overflow = "hidden";
     }
     return () => {
@@ -41,57 +36,39 @@ export default function Navbar() {
   }, [isMobileMenuOpen]);
 
   return (
-    <nav
-      className="bg-white border-b border-green-100 shadow-sm sticky top-0 z-50"
-      role="navigation"
-      aria-label="Main"
-    >
+    <nav className="bg-gradient-to-r from-green-50 via-white to-green-50 backdrop-blur-sm border-b border-green-100/60 shadow-[0_1px_6px_rgba(0,0,0,0.04)] sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo Section */}
+        <div className="flex justify-between items-center h-20">
+          {/* ---------- Brand Section ---------- */}
           <Link
             href="/"
-            className="flex items-center space-x-2 sm:space-x-3 group"
+            className="flex flex-col items-start sm:items-center group transition-all"
           >
-            {/* Strathmore University Logo */}
             <Image
-              src="/Strathmore-University-Logo.png"
-              alt="Strathmore University Logo"
-              width={96}
-              height={48}
-              className="h-8 sm:h-12 object-contain"
-              priority={false}
+              src="/wastewiselogo.png"
+              alt="WasteWise Logo"
+              width={150}
+              height={50}
+              className="h-12 sm:h-14 object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-105"
+              priority
             />
-
-            {/* Divider */}
-            <span className="text-gray-700 hidden sm:inline">|</span>
-
-            {/* SESC Logo + Text */}
-            <div className="flex items-center space-x-1 sm:space-x-2">
-              <Image
-                src="/Logo.png"
-                alt="SESC Logo"
-                width={32}
-                height={32}
-                className="h-6 w-6 sm:h-8 sm:w-8 object-cover rounded-full border border-[#c8102e] group-hover:border-[#00205b] transition-colors duration-200 flex-shrink-0"
-              />
-              <span className="font-bold text-base sm:text-lg lg:text-xl text-[#c8102e] group-hover:text-[#00205b] transition-colors duration-200 whitespace-nowrap">
-                SESC
-              </span>
-            </div>
+            <span className="text-[0.7rem] sm:text-xs text-green-800/70 italic mt-1 tracking-wide 
+                            group-hover:text-green-900 transition-colors duration-300">
+              A Strathmore & SESC Initiative
+            </span>
           </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex space-x-6">
+          {/* ---------- Desktop Nav ---------- */}
+          <div className="hidden md:flex items-center space-x-6">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "font-medium px-2 py-1 rounded transition",
+                  "relative font-medium px-3 py-2 transition duration-200 rounded-md",
                   pathname === link.href
-                    ? "text-[#c8102e] bg-[#e9eafb]"
-                    : "text-[#00205b] hover:text-[#c8102e] hover:bg-[#fbe9ec]"
+                    ? "text-green-800 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-green-700 after:rounded-full"
+                    : "text-gray-700 hover:text-green-700 hover:bg-green-100/50"
                 )}
                 aria-current={pathname === link.href ? "page" : undefined}
               >
@@ -100,27 +77,22 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* ---------- Mobile Menu Button ---------- */}
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsMobileMenuOpen((s) => !s)}
-              className="text-[#00205b] hover:text-[#c8102e] focus:outline-none focus:text-[#c8102e] p-2"
+              className="text-gray-700 hover:text-green-700 p-2 focus:outline-none transition"
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
             >
-              <span className="sr-only">
-                {isMobileMenuOpen ? "Close main menu" : "Open main menu"}
-              </span>
               <svg
                 className="h-6 w-6"
                 fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
               >
                 {isMobileMenuOpen ? (
                   <path d="M6 18L18 6M6 6l12 12" />
@@ -132,11 +104,11 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* ---------- Mobile Menu ---------- */}
         {isMobileMenuOpen && (
           <div
             id="mobile-menu"
-            className="md:hidden border-t border-green-100 bg-white"
+            className="md:hidden border-t border-green-100 bg-white/95 backdrop-blur-sm"
             role="menu"
           >
             <div className="px-2 pt-2 pb-3 space-y-1">
@@ -145,10 +117,10 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "block font-medium px-3 py-2 rounded transition",
+                    "block font-medium px-3 py-2 rounded transition duration-200",
                     pathname === link.href
-                      ? "text-[#c8102e] bg-[#e9eafb]"
-                      : "text-[#00205B] hover:text-[#c8102e] hover:bg-[#fbe9ec]"
+                      ? "text-green-800 bg-green-50"
+                      : "text-gray-700 hover:text-green-700 hover:bg-green-50"
                   )}
                   aria-current={pathname === link.href ? "page" : undefined}
                   onClick={() => setIsMobileMenuOpen(false)}
