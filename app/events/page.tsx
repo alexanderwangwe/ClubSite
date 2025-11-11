@@ -87,7 +87,7 @@ export default function EventsPage() {
           </Link>
 
           <h2 className="text-4xl sm:text-5xl font-extrabold text-green-900 mb-4">
-            WasteWise Events <span className="text-green-600 font-semibold text-lg">(in collaboration with SESC)</span>
+            Events 
           </h2>
 
           <p className="text-lg sm:text-xl text-gray-600 leading-relaxed max-w-3xl">
