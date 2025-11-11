@@ -15,7 +15,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export default function GetInvolvedPage() {
-  const googleFormUrl = "https://forms.gle/signupWasteWise"; // Update with actual WasteWise form URL
+  const googleFormUrl = "https://l.instagram.com/?u=https%3A%2F%2Fdocs.google.com%2Fforms%2Fd%2Fe%2F1FAIpQLSdGzVPRyLGZThMB6HtMa1kx3gd4oU3T3a0O1qhmkVMNeFpJFQ%2Fviewform%3Fusp%3Dsf_link%26fbclid%3DPAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnIGkhwXJPfH7iK9g0pRTavTWLbTv0JXJjpYc1GRN2mZYijLeIeEJUNB4ICvo_aem_V9eQeJD_pbR1OOL_NvcnDA&e=AT1RGykjnkVwaT8NmFOQB1YDjFVYF9w9zlY2COXmRmd7goFL2_pboHJns8BRoD_shU52ZyDNB8FOaj9ujiEfqiB_gkk2Ugv3KTF8YYR40Q"; // Update with form URL
 
   const participationWays = [
     {
