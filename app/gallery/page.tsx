@@ -97,7 +97,7 @@ export default function GalleryPage() {
           </Link>
 
           <h2 className="text-5xl font-bold text-green-900 mb-4 leading-tight">
-            Gallery
+            Past Events
           </h2>
           <p className="text-lg md:text-xl text-gray-700 max-w-3xl">
             Explore moments that define our journey toward sustainability.
